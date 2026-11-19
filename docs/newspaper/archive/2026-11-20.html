@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Daily Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #d8d8ce; --paper2: #cbcbc0; --ink: #1d1d1a; --sub: #56564f;
+  --spot: #22398b; --spot-soft: rgba(34,57,139,.30); --on-spot: #fff;
+  --display: "Zen Antique", "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --text: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+    --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+  --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; counter-reset: men; color: var(--ink);
+  font-family: var(--text); font-size: 15px; line-height: 1.8;
+  background-color: var(--paper);
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) .7px, transparent .9px);
+  background-size: 4px 4px;
+}
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--spot); outline-offset: 2px; }
+.paper { max-width: 1180px; margin: 0 auto; padding: 16px 18px 40px; }
+
+/* ===== 題字 ===== */
+.masthead {
+  display: grid; grid-template-columns: 96px 1fr 132px;
+  border-top: 6px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--paper2);
+}
+.mh-side { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 6px; border-right: 1px solid var(--ink); }
+.mh-side .tate { writing-mode: vertical-rl; font-family: var(--display); font-size: 30px; letter-spacing: .3em; line-height: 1; }
+.mh-side .issue { width: 100%; padding-top: 6px; border-top: 1px solid var(--ink); text-align: center; font-family: var(--display); font-size: 14px; }
+.mh-title { min-width: 0; padding: 8px 12px 10px; text-align: center; }
+.mh-title .kicker { margin: 0; font-family: var(--display); font-size: 12px; letter-spacing: .5em; color: var(--spot); }
+.mh-title h1 {
+  margin: 0; font-family: var(--display); font-weight: 400; line-height: 1.05;
+  font-size: clamp(38px, 8.4vw, 96px); text-shadow: 3px 3px 0 var(--spot-soft);
+}
+.mh-title .sub { margin: 4px 0 0; font-size: 13px; letter-spacing: .3em; color: var(--sub); }
+.mh-date { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 6px; border-left: 1px solid var(--ink); font-family: var(--display); line-height: 1.2; }
+.mh-date .ym { font-size: 13px; letter-spacing: .1em; }
+.mh-date .d { font-size: 58px; line-height: 1; color: var(--spot); }
+.mh-date .w { margin-top: 4px; padding-top: 3px; border-top: 1px solid var(--ink); font-size: 14px; letter-spacing: .2em; }
+
+/* ===== 号外 ===== */
+.urgent { display: flex; margin: 14px 0 0; border: 3px solid var(--ink); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--spot-soft) 9px 10px); }
+.urgent .tag { writing-mode: vertical-rl; padding: 8px 9px; background: var(--spot); color: var(--on-spot); font-family: var(--display); font-size: 24px; letter-spacing: .2em; }
+.urgent .body { flex: 1; padding: 8px 14px; background: color-mix(in srgb, var(--paper) 88%, transparent); }
+.urgent h2 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 20px; }
+.urgent ul { margin: 0; padding-left: 1.2em; }
+.urgent li { margin-bottom: 4px; }
+
+/* ===== 紙面の骨格 ===== */
+.main { margin-top: 18px; }
+.men { margin: 0 0 26px; }
+.men-head { display: flex; align-items: stretch; margin: 0 0 10px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; }
+.men-head .no { display: grid; place-items: center; margin-right: -6px; padding: 4px 18px 4px 12px; background: var(--spot); color: var(--on-spot); font-size: 15px; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+.men-head .no::before { counter-increment: men; content: "第" counter(men) "面"; }
+.men-head .ttl { padding: 4px 14px; font-size: 22px; letter-spacing: .12em; }
+.men-head .en { align-self: center; margin-left: auto; padding-right: 12px; font-family: var(--text); font-size: 11px; letter-spacing: .3em; opacity: .85; }
+.cols { column-count: 2; column-gap: 30px; column-rule: 1px dotted var(--sub); }
+
+/* ===== 記事 ===== */
+.story { break-inside: avoid; container-type: inline-size; padding: 10px 0 14px; border-bottom: 1px dotted var(--sub); }
+.story.top { column-span: all; padding: 8px 0 16px; border-bottom: 3px double var(--ink); }
+.story.top::before { content: "トップ記事"; display: inline-block; margin-bottom: 6px; padding: 0 9px; background: var(--ink); color: var(--paper); font-family: var(--display); font-size: 11px; letter-spacing: .25em; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin: 0 0 3px; font-family: var(--display); font-size: 12px; }
+.cat { display: inline-block; padding: 0 7px; border: 1px solid var(--spot); color: var(--spot); font-size: 11px; letter-spacing: .14em; }
+.meta a { color: var(--sub); text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
+.hd {
+  margin: 0 0 6px; font-family: var(--display); font-weight: 400; line-height: 1.3;
+  font-size: clamp(18px, 7.2cqi, 26px); text-shadow: 1.5px 1.5px 0 var(--spot-soft);
+  text-wrap: balance; word-break: auto-phrase;
+}
+.hd.l { font-size: clamp(26px, 5.2cqi, 44px); line-height: 1.22; text-shadow: 2px 2px 0 var(--spot-soft); }
+.hd.s { font-size: clamp(16px, 5.8cqi, 20px); }
+.hd a { text-decoration: none; }
+.hd a:hover { text-decoration: underline; text-decoration-color: var(--spot); }
+.story p { margin: 0 0 6px; text-align: justify; font-size: 14.5px; line-height: 1.85; }
+.story strong { font-weight: 900; }
+.story em { font-style: normal; border-bottom: 1px solid var(--spot); }
+.story code { font-family: inherit; padding: 0 3px; background: var(--spot-soft); }
+.story figure { margin: 0 0 8px; }
+.story figure img { display: block; width: 100%; height: auto; border: 1px solid var(--ink); filter: grayscale(1) contrast(1.12); }
+.story figcaption { margin-top: 3px; font-size: 11.5px; color: var(--sub); }
+.more { display: inline-block; padding: 0 9px; border: 1px solid var(--spot); color: var(--spot); font-family: var(--display); font-size: 12px; text-decoration: none; }
+.more:hover { background: var(--spot); color: var(--on-spot); }
+.more::before { content: "\25B6\00a0"; font-size: 9px; }
+
+/* ===== 下の欄 ===== */
+.bottom { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; align-items: start; margin-top: 8px; padding-top: 22px; border-top: 3px double var(--ink); }
+.side-box { padding: 0 12px 12px; border: 2px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 3px; background: color-mix(in srgb, var(--paper2) 55%, transparent); }
+.side-head { display: flex; justify-content: space-between; align-items: baseline; margin: 0 -12px 10px; padding: 4px 12px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; font-size: 15px; letter-spacing: .2em; }
+.side-head small { font-family: var(--text); font-size: 10px; letter-spacing: .3em; opacity: .85; }
+.bottom .story { padding: 0; border: 0; }
+.bottom .quote { grid-column: 1 / -1; }
+.bottom .solo { grid-column: 1 / -1; width: 100%; max-width: 680px; justify-self: center; }
+.quote { padding-bottom: 14px; }
+.quote .quote-body { max-width: 860px; margin: 12px auto 10px; text-align: center; }
+.quote blockquote { margin: 0; font-family: var(--display); font-size: clamp(22px, 3.4vw, 36px); line-height: 1.7; letter-spacing: .06em; text-shadow: 2px 2px 0 var(--spot-soft); text-wrap: balance; }
+.quote blockquote::before { content: "\300C"; }
+.quote blockquote::after { content: "\300D"; }
+.quote .who { margin: 10px 0 0; font-family: var(--display); font-size: clamp(20px, 2.4vw, 28px); letter-spacing: .3em; color: var(--spot); }
+.quote .who::before { content: "\2015\00a0"; }
+.quote .bio { max-width: 860px; margin: 6px auto 12px; font-size: 14px; line-height: 1.9; text-align: left; }
+.quote .bio .cat { margin-right: 8px; }
+.quote .src { margin: 0 auto; max-width: 860px; padding-top: 8px; border-top: 1px dotted var(--sub); text-align: center; font-size: 12px; line-height: 1.7; color: var(--sub); }
+
+.okuzuke { margin-top: 24px; padding-top: 10px; border-top: 6px solid var(--ink); text-align: center; font-size: 12px; color: var(--sub); }
+.okuzuke p { margin: 0 0 2px; }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 920px) {
+  .bottom { grid-template-columns: 1fr 1fr; }
+  .bottom .quote { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .paper { padding: 12px 12px 32px; }
+  .masthead { grid-template-columns: 64px 1fr; }
+  .mh-side .tate { font-size: 22px; }
+  .mh-date { grid-column: 1 / -1; flex-direction: row; gap: 10px; border-left: 0; border-top: 1px solid var(--ink); }
+  .mh-date .d { font-size: 34px; }
+  .mh-date .w { margin: 0; padding: 0 0 0 10px; border-top: 0; border-left: 1px solid var(--ink); }
+  .cols { column-count: 1; }
+  .bottom { grid-template-columns: 1fr; }
+  .story p { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <header class="masthead">
+    <div class="mh-side">
+      <span class="tate">日刊</span>
+      <span class="issue">第62号</span>
+    </div>
+    <div class="mh-title">
+      <p class="kicker">TECH &amp; LIFE</p>
+      <h1>Daily Dispatch</h1>
+      <p class="sub">技術と暮らしのニュース</p>
+    </div>
+    <div class="mh-date">
+      <span class="ym">2026年11月</span>
+      <span class="d">20</span>
+      <span class="w">金曜日</span>
+    </div>
+  </header>
+
+  <section class="urgent">
+    <span class="tag">号外</span>
+    <div class="body">
+      <h2>緊急のお知らせ</h2>
+      <ul>
+        <li><strong>Ruby</strong>の文字列変換に、標準構成の<strong>Rails</strong>・<strong>Sinatra</strong>から認証なしで突けるRCE(<em>Ruby2Shell</em>)。Ruby 3.3.14 / 3.4.13 / 4.0.10へ更新を。<strong>GitLab</strong>と<strong>GitHub Enterprise Server</strong>は11/19時点で修正版なし。実証コードは11/25公開予定で、悪用は現時点で未確認。<a class="more" href="https://verialabs.com/ruby2shell/" target="_blank" rel="noopener noreferrer">詳細を読む</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <main class="main">
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">AI</span><span class="en">AI NEWS &amp; AI USE</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50562754" target="_blank" rel="noopener noreferrer">Hacker News · 5h, 683p, 1207 comments</a></p>
+            <h3 class="hd l"><a href="https://edition.cnn.com/2026/11/19/business/live-news/anthropic-ipo" target="_blank" rel="noopener noreferrer">Anthropic、Nasdaq上場初日　初値111.5ドルで一時2兆ドル、終値は公開価格の17%高</a></h3>
+            <figure><img src="https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2305894185.jpg?c=16x9&amp;q=w_800,c_fill" alt=""><figcaption>画像:CNN</figcaption></figure>
+            <p>公開価格83ドルに対し初値は34%高、引けの時価総額は約<strong>1.76兆ドル</strong>。日々使う<strong>Claude</strong>の提供元が、四半期ごとに市場の評価を受ける上場企業になった。価格改定や無料枠、安全性への投資姿勢が、これからは株主の目にもさらされる点を押さえておきたい。</p>
+            <p><a class="more" href="https://edition.cnn.com/2026/11/19/business/live-news/anthropic-ipo" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50563148" target="_blank" rel="noopener noreferrer">Hacker News · 5h, 295p, 122 comments</a></p>
+            <h3 class="hd"><a href="https://www.anthropic.com/research/claude-black-hole-physics" target="_blank" rel="noopener noreferrer">Claude、ブラックホール物理の未解決問題を2つ解く　20年越しの計算も完了</a></h3>
+            <p><strong>Anthropic</strong>によれば、<strong>Claude Fable 5.2</strong>が量子重力研究の計算を仕上げ、論文プレプリントとして公開した。AIが「既存知識の要約」から「新しい結果を出す共同研究者」へ移りつつあることを示す具体例で、方法論の注記も読みどころ。</p>
+            <p><a class="more" href="https://www.anthropic.com/research/claude-black-hole-physics" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://b.hatena.ne.jp/entry/s/gigazine.net/news/20261119-openai-jalapeno-amd-advancing-chip/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 10 users</a></p>
+            <h3 class="hd"><a href="https://gigazine.net/news/20261119-openai-jalapeno-amd-advancing-chip/" target="_blank" rel="noopener noreferrer">OpenAI、自社AIでチップ設計を改善　AMD製GPUで最大14%、1年の作業を5か月に</a></h3>
+            <p>自社推論チップ<em>Jalapeño</em>の回路面積を削り、<strong>AMD</strong>の次世代CPUにも変更が採り入れられたという。AIがAIを動かすハードを速くする循環が実際の製品に入り始めたことで、計算資源の値下がりペースにも効いてくる話だ。</p>
+            <p><a class="more" href="https://gigazine.net/news/20261119-openai-jalapeno-amd-advancing-chip/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://b.hatena.ne.jp/entry/s/ascii.jp/elem/000/004/452/4452982/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 103 users</a></p>
+            <h3 class="hd s"><a href="https://ascii.jp/elem/000/004/452/4452982/" target="_blank" rel="noopener noreferrer">「ほぼ全人類が永久に失業する」　Anthropic研究者、開発ペースを4分の1に落とすよう主張</a></h3>
+            <p>上場当日に話題となった、作り手の内側からの警告。専門家並みのAIは<strong>2027年末</strong>ごろとしつつ、肉体労働の置き換えにはロボット量産という時間差があると説明する。自分の仕事のどこから先に置き換わるかを考える材料になる。</p>
+            <p><a class="more" href="https://ascii.jp/elem/000/004/452/4452982/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://b.hatena.ne.jp/entry/s/speakerdeck.com/minorun365/2026-11-lab-datsubotorunekku-ningen" target="_blank" rel="noopener noreferrer">はてなブックマーク · 161 users</a></p>
+            <h3 class="hd"><a href="https://speakerdeck.com/minorun365/2026-11-lab-datsubotorunekku-ningen" target="_blank" rel="noopener noreferrer">AIの報告を読み切れない問題　長い出力はHTMLにさせ、判断点だけ強調させる</a></h3>
+            <p>AIを並列で走らせるほど、詰まるのは人間の確認だという指摘から始まる<strong>みのるん</strong>氏の講演資料。報告をHTMLで出させ、読む専用の場所に集め、判断すべき箇所をハイライトさせる、と手順が具体的で、明日から真似できる。</p>
+            <p><a class="more" href="https://speakerdeck.com/minorun365/2026-11-lab-datsubotorunekku-ningen" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://news.ycombinator.com/item?id=50553225" target="_blank" rel="noopener noreferrer">Hacker News · 24h, 296p, 75 comments</a></p>
+            <h3 class="hd s"><a href="https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering" target="_blank" rel="noopener noreferrer">LLMでリバースエンジニアリング　Ghidraをエージェントにつなぎ、発見は逐一Markdownへ</a></h3>
+            <p>20年手作業で解析してきた筆者の現在の手順。調べたことを都度ファイルに書かせると、コンテキスト圧縮や引き継ぎ後も迷子にならないという学びは、解析以外の長いエージェント作業にもそのまま使える。</p>
+            <p><a class="more" href="https://www.slowchronicle.com/posts/llm-assisted-reverse-engineering" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">ITニュース</span><span class="en">IT NEWS</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">IT</span><a href="https://news.ycombinator.com/item?id=50557870" target="_blank" rel="noopener noreferrer">Hacker News · 13h, 258p, 124 comments</a></p>
+            <h3 class="hd l"><a href="https://www.php.net/releases/8.6/en.php" target="_blank" rel="noopener noreferrer">PHP 8.6リリース　部分適用、Durationクラス、epoll/kqueueのPolling API</a></h3>
+            <figure><img src="https://www.php.net/images/php8/php_8_6_released.png" alt=""><figcaption>画像:PHP</figcaption></figure>
+            <p><em>Partial Function Application</em>で引数の一部を先に渡したクロージャを書けるようになり、<em>Polling API</em>は<strong>ReactPHP</strong>などの非同期基盤を支える。サーバー側をPHPで持つアプリなら、API実装の書き味が変わる更新だ。</p>
+            <p><a class="more" href="https://www.php.net/releases/8.6/en.php" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/www.publickey1.jp/blog/26/postgresqlazure_horizondb.html" target="_blank" rel="noopener noreferrer">はてなブックマーク · 9 users</a></p>
+            <h3 class="hd"><a href="https://www.publickey1.jp/blog/26/postgresqlazure_horizondb.html" target="_blank" rel="noopener noreferrer">Microsoft「Azure HorizonDB」正式版　PostgreSQL互換で最大3072vCPU、通常の8倍の処理性能</a></h3>
+            <p>マルチゾーン構成でもコミットは1ミリ秒未満、フェイルオーバーは5秒以下とうたう。<em>pgvector</em>と<em>DiskANN</em>も使え、AI機能のベクトル検索を既存のPostgreSQL資産のまま大規模化したい場合の新しい選択肢になる。</p>
+            <p><a class="more" href="https://www.publickey1.jp/blog/26/postgresqlazure_horizondb.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/japan.cnet.com/article/35255140/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 11 users</a></p>
+            <h3 class="hd s"><a href="https://japan.cnet.com/article/35255140/" target="_blank" rel="noopener noreferrer">ネットにつながらない携帯「INFOBAR ZERO」は誰向けか　KDDIが通話とSMSだけで3万2780円</a></h3>
+            <p>海外で「ダムフォン」と呼ばれる流れの国内版。記事が紹介する研究では、効果が出たのは自分から切り替えを望んだ人だけだったという。アプリを作る側として、ユーザーの「離れたい」気持ちをどう扱うかを考えさせられる。</p>
+            <p><a class="more" href="https://japan.cnet.com/article/35255140/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">セキュリティ</span><span class="en">SECURITY</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://news.ycombinator.com/item?id=50556287" target="_blank" rel="noopener noreferrer">Hacker News · 17h, 362p, 153 comments</a></p>
+            <h3 class="hd l"><a href="https://verialabs.com/ruby2shell/" target="_blank" rel="noopener noreferrer">「Ruby2Shell」　ßを大文字にするだけで1バイト溢れ、標準構成のRailsで認証なしRCE</a></h3>
+            <figure><img src="https://verialabs.com/og/ruby2shell.png" alt=""><figcaption>画像:Veria Labs</figcaption></figure>
+            <p>旧来の1バイト文字コードで<em>ß</em>を<em>SS</em>に変換する際の境界チェック漏れが原因で、Ruby 2.4以降のほぼ全版が対象。<strong>Mastodon</strong>や<strong>Discourse</strong>は修正済みだが、<strong>GitLab</strong>と<strong>GitHub Enterprise Server</strong>は未修正。Ruby本体の同時修正は7件に及ぶ(<a href="https://forest.watch.impress.co.jp/docs/news/2157700.html" target="_blank" rel="noopener noreferrer">窓の杜</a>)。</p>
+            <p><a class="more" href="https://verialabs.com/ruby2shell/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://b.hatena.ne.jp/entry/s/forest.watch.impress.co.jp/docs/news/2158039.html" target="_blank" rel="noopener noreferrer">はてなブックマーク · 36 users</a></p>
+            <h3 class="hd"><a href="https://forest.watch.impress.co.jp/docs/news/2158039.html" target="_blank" rel="noopener noreferrer">PHPで17件の脆弱性を修正、うちCriticalが7件　v8.5は条件次第で遠隔コード実行</a></h3>
+            <p>今月だけで「致命的」なPHP更新は2度目。8.5系の解放済みメモリ使用ではRCEが実証済みとされる。8.2〜8.5の各系列に修正版が出ているので、バックエンドやCMSを持っているならRubyと合わせて棚卸しを。</p>
+            <p><a class="more" href="https://forest.watch.impress.co.jp/docs/news/2158039.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://b.hatena.ne.jp/entry/s/www.itmedia.co.jp/news/article/2611/19/2000003351/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 154 users</a></p>
+            <h3 class="hd s"><a href="https://www.itmedia.co.jp/news/article/2611/19/2000003351/" target="_blank" rel="noopener noreferrer">改ざんされた「NIKKE」ランチャー経由でマルウェア感染　北海道2自治体の住民情報に漏えいのおそれ</a></h3>
+            <p>再委託先の機器が遠隔操作型の<em>K2F</em>に感染し、<strong>新得町</strong>の住民基本台帳データ約6000件などが対象に。業務用PCでの私的なソフト利用と、再委託先の管理という古典的な穴が、ゲーム配布元の改ざんでそのまま突かれた。</p>
+            <p><a class="more" href="https://www.itmedia.co.jp/news/article/2611/19/2000003351/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+  </main>
+
+  <div class="bottom">
+      <section class="side-box solo">
+        <h2 class="side-head">暮らし欄<small>CAREER</small></h2>
+        <article class="story">
+          <p class="meta"><span class="cat">CAREER</span><a href="https://b.hatena.ne.jp/entry/s/note.com/y_hirano/n/nc986ab18b90e" target="_blank" rel="noopener noreferrer">はてなブックマーク · 398 users</a></p>
+          <h3 class="hd"><a href="https://note.com/y_hirano/n/nc986ab18b90e" target="_blank" rel="noopener noreferrer">実質的無職になった</a></h3>
+          <p>岩手でフリーランスを続けてきたエンジニアが、案件減で11月から仕事のない状態に。AIで担当作業が「高度化」から「不要」へ変わった時期を、モデルの世代ごとに振り返る。機材費の高騰で利益率が落ちていた話も含め、フリーランスの損益を考える生々しい記録だ。</p>
+          <p><a class="more" href="https://note.com/y_hirano/n/nc986ab18b90e" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+        </article>
+      </section>
+
+      <section class="side-box quote">
+        <h2 class="side-head">きょうの名言<small>QUOTE</small></h2>
+        <div class="quote-body">
+          <blockquote>心の中で解決のつかないすべてのことに忍耐を持ち、問いそのものを愛するよう努めてください</blockquote>
+          <p class="who">ライナー・マリア・リルケ</p>
+        </div>
+        <p class="bio"><span class="cat">人物</span>プラハ生まれのドイツ語詩人で、『ドゥイノの悲歌』『マルテの手記』などで知られる。この言葉は、進路に迷う若い士官候補生フランツ・クサーファー・カプスへの返信の一節。答えを急がず、問いを抱えたまま生きるうちに、いつか答えの中へ入っていくだろうと続けている。</p>
+        <p class="src">詩人、1875〜1926<br>出典:『若き詩人への手紙』第4信(1903年7月16日、ヴォルプスヴェーデにて)</p>
+      </section>
+  </div>
+
+  <footer class="okuzuke">
+    <p>Daily Dispatch は自動編集の個人用日刊紙です。</p>
+    <p>要約は各リンク先の元記事に基づきます。詳しくは元記事をご覧ください。</p>
+  </footer>
+</div>
+</body>
+</html>
