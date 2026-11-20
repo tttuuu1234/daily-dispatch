@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Daily Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #d8d8ce; --paper2: #cbcbc0; --ink: #1d1d1a; --sub: #56564f;
+  --spot: #22398b; --spot-soft: rgba(34,57,139,.30); --on-spot: #fff;
+  --display: "Zen Antique", "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --text: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+    --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+  --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; counter-reset: men; color: var(--ink);
+  font-family: var(--text); font-size: 15px; line-height: 1.8;
+  background-color: var(--paper);
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) .7px, transparent .9px);
+  background-size: 4px 4px;
+}
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--spot); outline-offset: 2px; }
+.paper { max-width: 1180px; margin: 0 auto; padding: 16px 18px 40px; }
+
+/* ===== 題字 ===== */
+.masthead {
+  display: grid; grid-template-columns: 96px 1fr 132px;
+  border-top: 6px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--paper2);
+}
+.mh-side { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 6px; border-right: 1px solid var(--ink); }
+.mh-side .tate { writing-mode: vertical-rl; font-family: var(--display); font-size: 30px; letter-spacing: .3em; line-height: 1; }
+.mh-side .issue { width: 100%; padding-top: 6px; border-top: 1px solid var(--ink); text-align: center; font-family: var(--display); font-size: 14px; }
+.mh-title { min-width: 0; padding: 8px 12px 10px; text-align: center; }
+.mh-title .kicker { margin: 0; font-family: var(--display); font-size: 12px; letter-spacing: .5em; color: var(--spot); }
+.mh-title h1 {
+  margin: 0; font-family: var(--display); font-weight: 400; line-height: 1.05;
+  font-size: clamp(38px, 8.4vw, 96px); text-shadow: 3px 3px 0 var(--spot-soft);
+}
+.mh-title .sub { margin: 4px 0 0; font-size: 13px; letter-spacing: .3em; color: var(--sub); }
+.mh-date { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 6px; border-left: 1px solid var(--ink); font-family: var(--display); line-height: 1.2; }
+.mh-date .ym { font-size: 13px; letter-spacing: .1em; }
+.mh-date .d { font-size: 58px; line-height: 1; color: var(--spot); }
+.mh-date .w { margin-top: 4px; padding-top: 3px; border-top: 1px solid var(--ink); font-size: 14px; letter-spacing: .2em; }
+
+/* ===== 号外 ===== */
+.urgent { display: flex; margin: 14px 0 0; border: 3px solid var(--ink); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--spot-soft) 9px 10px); }
+.urgent .tag { writing-mode: vertical-rl; padding: 8px 9px; background: var(--spot); color: var(--on-spot); font-family: var(--display); font-size: 24px; letter-spacing: .2em; }
+.urgent .body { flex: 1; padding: 8px 14px; background: color-mix(in srgb, var(--paper) 88%, transparent); }
+.urgent h2 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 20px; }
+.urgent ul { margin: 0; padding-left: 1.2em; }
+.urgent li { margin-bottom: 4px; }
+
+/* ===== 紙面の骨格 ===== */
+.main { margin-top: 18px; }
+.men { margin: 0 0 26px; }
+.men-head { display: flex; align-items: stretch; margin: 0 0 10px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; }
+.men-head .no { display: grid; place-items: center; margin-right: -6px; padding: 4px 18px 4px 12px; background: var(--spot); color: var(--on-spot); font-size: 15px; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+.men-head .no::before { counter-increment: men; content: "第" counter(men) "面"; }
+.men-head .ttl { padding: 4px 14px; font-size: 22px; letter-spacing: .12em; }
+.men-head .en { align-self: center; margin-left: auto; padding-right: 12px; font-family: var(--text); font-size: 11px; letter-spacing: .3em; opacity: .85; }
+.cols { column-count: 2; column-gap: 30px; column-rule: 1px dotted var(--sub); }
+
+/* ===== 記事 ===== */
+.story { break-inside: avoid; container-type: inline-size; padding: 10px 0 14px; border-bottom: 1px dotted var(--sub); }
+.story.top { column-span: all; padding: 8px 0 16px; border-bottom: 3px double var(--ink); }
+.story.top::before { content: "トップ記事"; display: inline-block; margin-bottom: 6px; padding: 0 9px; background: var(--ink); color: var(--paper); font-family: var(--display); font-size: 11px; letter-spacing: .25em; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin: 0 0 3px; font-family: var(--display); font-size: 12px; }
+.cat { display: inline-block; padding: 0 7px; border: 1px solid var(--spot); color: var(--spot); font-size: 11px; letter-spacing: .14em; }
+.meta a { color: var(--sub); text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
+.hd {
+  margin: 0 0 6px; font-family: var(--display); font-weight: 400; line-height: 1.3;
+  font-size: clamp(18px, 7.2cqi, 26px); text-shadow: 1.5px 1.5px 0 var(--spot-soft);
+  text-wrap: balance; word-break: auto-phrase;
+}
+.hd.l { font-size: clamp(26px, 5.2cqi, 44px); line-height: 1.22; text-shadow: 2px 2px 0 var(--spot-soft); }
+.hd.s { font-size: clamp(16px, 5.8cqi, 20px); }
+.hd a { text-decoration: none; }
+.hd a:hover { text-decoration: underline; text-decoration-color: var(--spot); }
+.story p { margin: 0 0 6px; text-align: justify; font-size: 14.5px; line-height: 1.85; }
+.story strong { font-weight: 900; }
+.story em { font-style: normal; border-bottom: 1px solid var(--spot); }
+.story code { font-family: inherit; padding: 0 3px; background: var(--spot-soft); }
+.story figure { margin: 0 0 8px; }
+.story figure img { display: block; width: 100%; height: auto; border: 1px solid var(--ink); filter: grayscale(1) contrast(1.12); }
+.story figcaption { margin-top: 3px; font-size: 11.5px; color: var(--sub); }
+.more { display: inline-block; padding: 0 9px; border: 1px solid var(--spot); color: var(--spot); font-family: var(--display); font-size: 12px; text-decoration: none; }
+.more:hover { background: var(--spot); color: var(--on-spot); }
+.more::before { content: "\25B6\00a0"; font-size: 9px; }
+
+/* ===== 下の欄 ===== */
+.bottom { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; align-items: start; margin-top: 8px; padding-top: 22px; border-top: 3px double var(--ink); }
+.side-box { padding: 0 12px 12px; border: 2px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 3px; background: color-mix(in srgb, var(--paper2) 55%, transparent); }
+.side-head { display: flex; justify-content: space-between; align-items: baseline; margin: 0 -12px 10px; padding: 4px 12px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; font-size: 15px; letter-spacing: .2em; }
+.side-head small { font-family: var(--text); font-size: 10px; letter-spacing: .3em; opacity: .85; }
+.bottom .story { padding: 0; border: 0; }
+.bottom .quote { grid-column: 1 / -1; }
+.bottom .solo { grid-column: 1 / -1; width: 100%; max-width: 680px; justify-self: center; }
+.quote { padding-bottom: 14px; }
+.quote .quote-body { max-width: 860px; margin: 12px auto 10px; text-align: center; }
+.quote blockquote { margin: 0; font-family: var(--display); font-size: clamp(22px, 3.4vw, 36px); line-height: 1.7; letter-spacing: .06em; text-shadow: 2px 2px 0 var(--spot-soft); text-wrap: balance; }
+.quote blockquote::before { content: "\300C"; }
+.quote blockquote::after { content: "\300D"; }
+.quote .who { margin: 10px 0 0; font-family: var(--display); font-size: clamp(20px, 2.4vw, 28px); letter-spacing: .3em; color: var(--spot); }
+.quote .who::before { content: "\2015\00a0"; }
+.quote .bio { max-width: 860px; margin: 6px auto 12px; font-size: 14px; line-height: 1.9; text-align: left; }
+.quote .bio .cat { margin-right: 8px; }
+.quote .src { margin: 0 auto; max-width: 860px; padding-top: 8px; border-top: 1px dotted var(--sub); text-align: center; font-size: 12px; line-height: 1.7; color: var(--sub); }
+
+.okuzuke { margin-top: 24px; padding-top: 10px; border-top: 6px solid var(--ink); text-align: center; font-size: 12px; color: var(--sub); }
+.okuzuke p { margin: 0 0 2px; }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 920px) {
+  .bottom { grid-template-columns: 1fr 1fr; }
+  .bottom .quote { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .paper { padding: 12px 12px 32px; }
+  .masthead { grid-template-columns: 64px 1fr; }
+  .mh-side .tate { font-size: 22px; }
+  .mh-date { grid-column: 1 / -1; flex-direction: row; gap: 10px; border-left: 0; border-top: 1px solid var(--ink); }
+  .mh-date .d { font-size: 34px; }
+  .mh-date .w { margin: 0; padding: 0 0 0 10px; border-top: 0; border-left: 1px solid var(--ink); }
+  .cols { column-count: 1; }
+  .bottom { grid-template-columns: 1fr; }
+  .story p { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <header class="masthead">
+    <div class="mh-side">
+      <span class="tate">日刊</span>
+      <span class="issue">第63号</span>
+    </div>
+    <div class="mh-title">
+      <p class="kicker">TECH &amp; LIFE</p>
+      <h1>Daily Dispatch</h1>
+      <p class="sub">技術と暮らしのニュース</p>
+    </div>
+    <div class="mh-date">
+      <span class="ym">2026年11月</span>
+      <span class="d">21</span>
+      <span class="w">土曜日</span>
+    </div>
+  </header>
+
+  <main class="main">
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">AI</span><span class="en">AI NEWS &amp; AI USE</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50574968" target="_blank" rel="noopener noreferrer">Hacker News · 8h, 2137p, 1462 comments</a></p>
+            <h3 class="hd l"><a href="https://alpo.ge/remark.pdf" target="_blank" rel="noopener noreferrer">数学者アルペゲ氏「Claudeと一般化リーマン予想を証明した」　Leanで1740万行の形式化つき</a></h3>
+            <p>150年来の難問に、AIとの共同作業で証明が出たと<strong>Levent Alpöge</strong>氏が発表しました。本人は方向づけを担い、終盤の決め手となる発想は<strong>Claude</strong>が出したと書いています。人が読める論文はまだなく、証明は<em>Lean</em>のコードだけで公開されました。<strong>Scott Aaronson</strong>氏は「Leanの検証付きのAI成果で撤回された例はまだない」として成立に賭けつつ、数学者が中身を理解するには何年もかかる可能性があると指摘しています。「AIが出した巨大な証明を、人がどう受け取るか」という新しい問題の始まりでもあります。</p>
+            <p><a class="more" href="https://alpo.ge/remark.pdf" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50581438" target="_blank" rel="noopener noreferrer">Hacker News · 2h, 115p, 39 comments</a></p>
+            <h3 class="hd"><a href="https://finance.yahoo.com/markets/article/nvidia-stock-extends-25-trillion-rout-as-sec-probe-reportedly-investigates-its-accounting-194945274.html" target="_blank" rel="noopener noreferrer">米SEC、NVIDIAの会計を調査か　株価は1日で14%下落、上場2日目のAnthropicも9%安</a></h3>
+            <p>報道によると、調査はシンガポール法人経由の売上や、中国への迂回が疑われる顧客との取引にも関わる可能性があります。<strong>NVIDIA</strong>は10-Qの提出を遅らせ、取締役会の独立委員会による調査が続いていると明かしました。ナスダック指数は5.3%下がって年初来の上昇分を失い、上場直後の<strong>Anthropic</strong>株も公開価格をわずかに上回る水準まで戻しました。AI投資への市場の見方が急に冷え込んでいます。</p>
+            <p><a class="more" href="https://finance.yahoo.com/markets/article/nvidia-stock-extends-25-trillion-rout-as-sec-probe-reportedly-investigates-its-accounting-194945274.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50581260" target="_blank" rel="noopener noreferrer">Hacker News · 2h, 338p, 46 comments</a></p>
+            <h3 class="hd"><a href="https://thinkingmachines.ai/news/inkling-2-mini/" target="_blank" rel="noopener noreferrer">Thinking Machines「Inkling 2 Mini」公開　ノートPCで動く26Bモデル、SWE-bench Verifiedで79%</a></h3>
+            <figure><img src="https://thinkingmachines.ai/news/inkling-2-mini/images/cover-social.png" alt=""><figcaption>画像:Thinking Machines Lab</figcaption></figure>
+            <p>中間層を3回通す「ループ型」のMoEで、メモリは約20GBです。<strong>Ollama</strong>なら32GB以上のMacでそのまま動きます。社外に出せないコードを手元のモデルで扱いたい人にとって、性能面の不安がかなり減る数字です。一方で、複雑な制約に従う指標の点数は低いと公式も認めています。</p>
+            <p><a class="more" href="https://thinkingmachines.ai/news/inkling-2-mini/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50577265" target="_blank" rel="noopener noreferrer">Hacker News · 6h, 293p, 98 comments</a></p>
+            <h3 class="hd s"><a href="https://arxiv.org/abs/2611.21885" target="_blank" rel="noopener noreferrer">LLMが自分の重みを書き換えて賢くなる　学習なしで、未知の問題の正答率が6.6ポイント向上</a></h3>
+            <p>27Bのモデルに自分の重みと採点結果を渡すと、失敗の原因を調べて重みを直し、効いた変更だけを残しました。勾配計算は使っていません。同じ系統で自力の改善ができたのは最大のモデルだけで、小さいモデルは自分を壊したという結果も、規模の意味を考えさせます。</p>
+            <p><a class="more" href="https://arxiv.org/abs/2611.21885" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://b.hatena.ne.jp/entry/s/zenn.dev/nttdata_tech/articles/9562962cc181a1" target="_blank" rel="noopener noreferrer">はてなブックマーク · 278 users</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/nttdata_tech/articles/9562962cc181a1" target="_blank" rel="noopener noreferrer">プロンプトより「置き場所」を決める　Claude CodeとCodexで、4か月育てた自律改善ハーネス</a></h3>
+            <p>方針は1つのファイルにまとめ、<em>CLAUDE.md</em>と<em>AGENTS.md</em>はそこを指すだけにします。タスクごとの記録と会話ログの保存場所をフックで残し、指摘された内容は種類別に保存して次の会話に引き継がせます。著者は「43枚のスライドを、実際には確かめずに確認済みにした」失敗を挙げ、完了報告は必ず実際のチェックで確かめるべきだと書いています。始めるための3つの手順も示されています。</p>
+            <p><a class="more" href="https://zenn.dev/nttdata_tech/articles/9562962cc181a1" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://b.hatena.ne.jp/entry/s/blog.shibayu36.org/entry/2026/11/17/120000" target="_blank" rel="noopener noreferrer">はてなブックマーク · 334 users</a></p>
+            <h3 class="hd s"><a href="https://blog.shibayu36.org/entry/2026/11/17/120000" target="_blank" rel="noopener noreferrer">AIの返答が読みにくいなら、自分のつまずきを分析させてSkillに</a></h3>
+            <p>過去の会話ログから聞き返した場面を集めさせ、原因ごとに分けて自分の認知特性の仮説を出させました。確かめた特性を<em>Skill</em>にし、「上の案」と指さずにその場で中身を書き直す、用語は初出で説明する、といった書き方の規則を常に読み込ませています。AIを自分に合わせて調整する、手軽な手順です。</p>
+            <p><a class="more" href="https://blog.shibayu36.org/entry/2026/11/17/120000" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">ITニュース</span><span class="en">IT NEWS</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/type.jp/et/feature/32219/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 453 users</a></p>
+            <h3 class="hd l"><a href="https://type.jp/et/feature/32219/" target="_blank" rel="noopener noreferrer">「OSS文化は、あと10年もたないかもしれない」　Rubyの父・まつもとゆきひろ氏の危機感</a></h3>
+            <figure><img src="https://type.jp/et/feature/wp-content/uploads/2026/11/matsumoto_yukihiro_OSS.jpg" alt=""><figcaption>画像:エンジニアtype</figcaption></figure>
+            <p>AIがOSSを組み合わせてアプリを作ると、使う側は何に頼っているのかを知らないまま終わり、支援も貢献も生まれにくくなる、というのが<strong>まつもとゆきひろ</strong>氏の懸念です。<strong>Ruby</strong>には専任のセキュリティ担当がおらず、<strong>RubyGems</strong>も1人だけだといいます。AIで攻撃する側は一度成功すればよく、守る側の負担だけが増えていく構図です。毎日パッケージを使う開発者として、依存先の持続性を考えさせられる話です。</p>
+            <p><a class="more" href="https://type.jp/et/feature/32219/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://news.ycombinator.com/item?id=50575644" target="_blank" rel="noopener noreferrer">Hacker News · 7h, 304p, 176 comments</a></p>
+            <h3 class="hd"><a href="https://blog.mozilla.org/en/mozilla/internet-policy/apple-ios-browser-engine-rules/" target="_blank" rel="noopener noreferrer">日本とEUで解禁されても、iOSに非WebKitブラウザは1つも出ていない　Mozillaが条件を批判</a></h3>
+            <p>EUでは約3年、日本でも約1年たちますが、独自エンジンのブラウザは1つも出ていません。<strong>Mozilla</strong>は、既存アプリのエンジンを差し替えられず別アプリにするしかない点などを挙げ、<strong>Apple</strong>の条件は実際には使えないと主張しています。iOSでWebViewやPWAを扱うモバイル開発者にとって、当面はWebKitが前提のままだということです。</p>
+            <p><a class="more" href="https://blog.mozilla.org/en/mozilla/internet-policy/apple-ios-browser-engine-rules/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/forest.watch.impress.co.jp/docs/news/2158040.html" target="_blank" rel="noopener noreferrer">はてなブックマーク · 112 users</a></p>
+            <h3 class="hd s"><a href="https://forest.watch.impress.co.jp/docs/news/2158040.html" target="_blank" rel="noopener noreferrer">「Microsoft To Do」アプリが2027年6月で終了　個人向けの後継はなし</a></h3>
+            <p>職場・学校アカウントは<strong>Planner</strong>の「マイ タスク」が後継になりますが、既存のタスクは自動では移りません。個人で使っている人は、エクスポート手段の案内を待って別のアプリへ移る準備が必要です。</p>
+            <p><a class="more" href="https://forest.watch.impress.co.jp/docs/news/2158040.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">Flutter</span><span class="en">FLUTTER &amp; DART</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://github.com/flutter/flutter/releases/tag/3.50.1" target="_blank" rel="noopener noreferrer">GitHub Releases · 11/20</a></p>
+            <h3 class="hd l"><a href="https://github.com/flutter/flutter/releases/tag/3.50.1" target="_blank" rel="noopener noreferrer">Flutter 3.50.1公開　3.50.0のAndroidビルドで「.env」などのアセットが黙って抜け落ちる不具合を修正</a></h3>
+            <p>3.50.0では、ドットで始まるファイルや下線で始まるフォルダのアセットがAPKやAABに入らず、実行時に初めて失敗していました。独自の<em>buildType</em>を使うプロジェクトでGradleの設定が失敗する問題や、Wasmビルドでの文字描画のフリーズも直っています。3.50.0でリリースビルドを作った人は、更新して作り直すのが安全です。</p>
+            <p><a class="more" href="https://github.com/flutter/flutter/releases/tag/3.50.1" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://flutter.dev/blog/a2ui-launch" target="_blank" rel="noopener noreferrer">Flutter公式 · 11/17</a></p>
+            <h3 class="hd"><a href="https://flutter.dev/blog/a2ui-launch" target="_blank" rel="noopener noreferrer">A2UI 1.0と「a2ui_flutter」公開　AIエージェントの返答をFlutterのウィジェットで描く</a></h3>
+            <figure><img src="https://flutter.dev/assets/a2ui-launch.c64147aa657a79276fa6d2330f981972.webp" alt=""><figcaption>画像:Flutter</figcaption></figure>
+            <p>旧<strong>genui</strong>パッケージが改名され、正式版になりました。エージェントが送るのはコードではなく部品の指定で、アプリ側がカタログと照らして検証してから描くため、親子関係が不正なら壊れたUIではなくエラーになります。LLMを介さずにバックエンドの関数を呼ぶ<em>callAgentFunction</em>も加わり、アプリにAIの画面生成を組み込む現実的な手段になってきました。</p>
+            <p><a class="more" href="https://flutter.dev/blog/a2ui-launch" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://github.com/dart-lang/sdk/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">GitHub · 11/19</a></p>
+            <h3 class="hd"><a href="https://github.com/dart-lang/sdk/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Dart 3.15がベータに　「this」も型昇格の対象に、ローカル変数への退避が不要へ</a></h3>
+            <p>Flutter 3.51のベータ版に<strong>Dart 3.15</strong>が入りました。<code>if (this is Circle)</code>のあとに、そのまま<code>radius</code>を使えます。分岐が合流したあとも共通の型昇格が残るようになり、拡張メソッドでよく書く<code>var self = this;</code>は<em>unnecessary_this_alias</em>で検出し、<code>dart fix</code>で消せます。importの<code>show</code>/<code>hide</code>は1つまでに制限されます。</p>
+            <p><a class="more" href="https://github.com/dart-lang/sdk/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://qiita.com/konaito/items/3c33e5d17b86e9a30386" target="_blank" rel="noopener noreferrer">Qiita · 11/18</a></p>
+            <h3 class="hd"><a href="https://qiita.com/konaito/items/3c33e5d17b86e9a30386" target="_blank" rel="noopener noreferrer">AIに書かせるならFlutterはまだ要るか　ネイティブ2本はFlutterの約2倍のトークンを使った</a></h3>
+            <p>同じ仕様のアプリを<strong>Flutter</strong>、<strong>Expo</strong>、SwiftUIとKotlinの4通りでClaude Codeに36本書かせて比べました。小中規模ではネイティブ2本の合計がFlutterの約2倍でしたが、通知や画像添付まで入れると差は1.27倍に縮みました。Androidのビルドを通す手戻りが原因です。金額自体は小さく、保守の手間は測っていない点も明記されています。</p>
+            <p><a class="more" href="https://qiita.com/konaito/items/3c33e5d17b86e9a30386" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/sompojapan_dx/articles/82773e373b0a9a" target="_blank" rel="noopener noreferrer">Zenn · 11/19</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/sompojapan_dx/articles/82773e373b0a9a" target="_blank" rel="noopener noreferrer">QAエンジニアがClaude Codeと組み、FlutterアプリのE2EをAppiumで内製</a></h3>
+            <p>アプリには<em>Key</em>が418個ありましたが外部ツールからは見えず、<em>Semantics(identifier:)</em>は0個でした。そこでアプリに手を入れずに済む<strong>Appium</strong>を選び、iOSとAndroidで各11本を自社CIで動かしています。入力が反映されていないのに成功する「偽の緑」の例は、テストを書く人なら誰でも確認しておきたい内容です。</p>
+            <p><a class="more" href="https://zenn.dev/sompojapan_dx/articles/82773e373b0a9a" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/crs/articles/01-firestore-rules-enumeration" target="_blank" rel="noopener noreferrer">Zenn · 11/17</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/crs/articles/01-firestore-rules-enumeration" target="_blank" rel="noopener noreferrer">Firestoreルールの「ログイン済みなら read 可」で、招待トークンが全件読めた</a></h3>
+            <p>Flutter製の家族向けアプリで、AIのセキュリティレビューが見つけた穴です。<code>read</code>は<code>get</code>と<code>list</code>の両方を含むため、登録さえすれば未使用の招待を一覧でき、他人とつながれました。<code>get</code>だけに絞る、<code>getAfter()</code>で招待の使用済み化を同じ書き込みで強制する、といった直し方が具体的です。</p>
+            <p><a class="more" href="https://zenn.dev/crs/articles/01-firestore-rules-enumeration" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/genda_jp/articles/e95a159df9c066" target="_blank" rel="noopener noreferrer">Zenn · 11/17</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/genda_jp/articles/e95a159df9c066" target="_blank" rel="noopener noreferrer">FlutterKaigi 2026参加レポート　関心は「AI開発の中でFlutterをどう活かすか」へ</a></h3>
+            <p>指示書を圧縮して手順はSkills、知識はMCPへ移した移行事例や、人とAIのPRレビューの分担、仕様書とFigmaから操作ログの実装を自動化する手法が紹介されました。<strong>GenUI</strong>への注目も高く、国内のFlutter開発の現場がどこへ向かっているかを短時間でつかめます。</p>
+            <p><a class="more" href="https://zenn.dev/genda_jp/articles/e95a159df9c066" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/zeppon/articles/guideline-4-3-a-spam" target="_blank" rel="noopener noreferrer">Zenn · 11/16</a></p>
+            <h3 class="hd s"><a href="https://zenn.dev/zeppon/articles/guideline-4-3-a-spam" target="_blank" rel="noopener noreferrer">App Storeの「4.3(a) スパム」で却下されたら、再提出の前に確認する3点</a></h3>
+            <p>同じ内容での再提出が最悪の対応だと著者は言います。新しいビルドを出すと審査のスレッドが閉じてしまうため、まず返信で進める道を探すこと。共通部品で複数のアプリを作る個人開発者には特に役立ちます。</p>
+            <p><a class="more" href="https://zenn.dev/zeppon/articles/guideline-4-3-a-spam" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/wa_rp_studio/articles/flutter-widget-test-short-screen" target="_blank" rel="noopener noreferrer">Zenn · 11/18</a></p>
+            <h3 class="hd s"><a href="https://zenn.dev/wa_rp_studio/articles/flutter-widget-test-short-screen" target="_blank" rel="noopener noreferrer">背の低い画面をウィジェットテストで確かめる　setSurfaceSizeだけではMediaQueryが変わらない</a></h3>
+            <p>横向きや文字1.5倍で入力欄が画面外に出る不具合を、テストで再現してから直した記録です。<code>tester.view</code>で大きさとキーボードをそろえる、<code>hitTestable()</code>で押せるかを別に確かめる、など実用的な注意が並びます。</p>
+            <p><a class="more" href="https://zenn.dev/wa_rp_studio/articles/flutter-widget-test-short-screen" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://flutter.dev/blog/flutter-q4-2026-survey" target="_blank" rel="noopener noreferrer">Flutter公式 · 11/18</a></p>
+            <h3 class="hd s"><a href="https://flutter.dev/blog/flutter-q4-2026-survey" target="_blank" rel="noopener noreferrer">Flutterの第4四半期アンケート、12月2日まで</a></h3>
+            <p>回答はロードマップづくりに使われます。material_uiの分離やネイティブ連携の安定化が続いた直後なので、移行で困った点を伝えるよい機会です。</p>
+            <p><a class="more" href="https://flutter.dev/blog/flutter-q4-2026-survey" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">セキュリティ</span><span class="en">SECURITY</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://b.hatena.ne.jp/entry/s/plaid.co.jp/news/20261120/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 20 users</a></p>
+            <h3 class="hd l"><a href="https://plaid.co.jp/news/20261120/" target="_blank" rel="noopener noreferrer">「KARTE」への不正アクセス、調査結果を公表　三井住友銀は最大1400万件、再開は来年1月中旬</a></h3>
+            <figure><img src="https://plaid.co.jp/assets/images/news/20261113-ogp.png" alt=""><figcaption>画像:プレイド</figcaption></figure>
+            <p>公開経路の内部処理の脆弱性からデータが取られ、そこで得た認証情報で管理画面に入られました。<strong>プレイド</strong>によると、連携データが漏れた企業は570社、外部サービス連携用の認証情報が漏れた企業は754社にのぼり、契約終了後に消すべきデータまで残っていました。<strong>三井住友銀行</strong>は、生年月日などを含む最大約1400万件が漏れたと発表しています。アプリやWebに入れた外部SDKが、そのまま自社の漏えい経路になる例です。</p>
+            <p><a class="more" href="https://plaid.co.jp/news/20261120/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://news.ycombinator.com/item?id=50567209" target="_blank" rel="noopener noreferrer">Hacker News · 24h, 179p, 138 comments</a></p>
+            <h3 class="hd"><a href="https://www.synology.com/en-uk/security/advisory/Synology_SA_26_21" target="_blank" rel="noopener noreferrer">Synology DSMのOAuth APIに深刻度9.8の脆弱性　認証なしで任意のファイルを読み書き</a></h3>
+            <p>DSM 7.4と7.3には修正版が出ていますが、7.2系、7.1、<strong>BeeStation OS</strong>は修正作業中です。それまでは<em>OAuth Service</em>パッケージを無効にするよう案内されています。自宅や社内でNASを外部公開している人は、すぐに確認してください。</p>
+            <p><a class="more" href="https://www.synology.com/en-uk/security/advisory/Synology_SA_26_21" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://b.hatena.ne.jp/entry/s/news.mynavi.jp/techplus/article/20261120-5367457/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 67 users</a></p>
+            <h3 class="hd s"><a href="https://news.mynavi.jp/techplus/article/20261120-5367457/" target="_blank" rel="noopener noreferrer">POS端末700台超がマルウェアに感染、カード情報100万件超が流出　2年前の修正済みWindows脆弱性を悪用</a></h3>
+            <p>使われたのは2024年12月に修正済みのCLFSドライバーの権限昇格です。更新を止めたまま長く動かしている端末が狙われた形で、被害は20か国以上、大半はブラジルでした。</p>
+            <p><a class="more" href="https://news.mynavi.jp/techplus/article/20261120-5367457/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+  </main>
+
+  <div class="bottom">
+      <section class="side-box solo">
+        <h2 class="side-head">暮らし欄<small>CAREER</small></h2>
+        <article class="story">
+          <p class="meta"><span class="cat">CAREER</span><a href="https://news.ycombinator.com/item?id=50579331" target="_blank" rel="noopener noreferrer">Hacker News · 4h, 184p, 109 comments</a></p>
+          <h3 class="hd"><a href="https://manidoraisamy.com/developer-to-architect.html" target="_blank" rel="noopener noreferrer">開発者は、知らないうちにアーキテクトに昇格させられていた</a></h3>
+          <p>AIはコードを上手に書きますが、規模や段階を知らないまま設計を勝手に決めてしまいます。著者の例では、ログを取る処理のせいで最初の画面の表示に15秒かかりました。要件ごとにコストを問い返す、データモデルは自分で先に決める、AIの出力をAPI呼び出し回数や境界の観点で見直す。これからの開発者が鍛えるべき力が具体的に並んでいます。</p>
+          <p><a class="more" href="https://manidoraisamy.com/developer-to-architect.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+        </article>
+      </section>
+
+      <section class="side-box quote">
+        <h2 class="side-head">きょうの名言<small>QUOTE</small></h2>
+        <div class="quote-body">
+          <blockquote>七十三歳でようやく、鳥獣虫魚の骨格や草木の成り立ちが少し分かってきた。だから八十歳ではますます進み、九十歳でその奥義を極め、百歳でまさに神妙の域に達するだろうか</blockquote>
+          <p class="who">葛飾北斎</p>
+        </div>
+        <p class="bio"><span class="cat">人物</span>江戸後期の浮世絵師で、「冨嶽三十六景」や『北斎漫画』で知られ、西洋の印象派にも大きな影響を与えました。この言葉は75歳で出した絵本『富嶽百景』の跋文にあり、「七十歳より前に描いたものは取るに足りない」と書いたうえで続けたものです。90歳近くまで筆を執り続け、生涯の修業を語った言葉として広く知られています。</p>
+        <p class="src">浮世絵師、1760年〜1849年<br>出典:『富嶽百景』初編 跋文(1834年)。現代語訳</p>
+      </section>
+  </div>
+
+  <footer class="okuzuke">
+    <p>Daily Dispatch は自動編集の個人用日刊紙です。</p>
+    <p>要約は各リンク先の元記事に基づきます。詳しくは元記事をご覧ください。</p>
+  </footer>
+</div>
+</body>
+</html>
