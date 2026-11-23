@@ -14,7 +14,7 @@ user_invocable: true
 4. 変更内容を分析し、日本語でコミットメッセージを作成する。
    - 1行目: 変更の要約（例: 「新聞スキルの要約形式を変更」）
    - 必要なら2行目以降に補足
-5. `mcp__github__push_files` ツールで `tttuuu1234/life` リポジトリの main ブランチにpushする（owner: `tttuuu1234`, repo: `life`, branch: `main`）。
+5. `mcp__github__push_files` ツールで `tttuuu1234/daily-dispatch` リポジトリの main ブランチにpushする（owner: `tttuuu1234`, repo: `daily-dispatch`, branch: `main`）。
    - 変更したファイルをすべて1回の呼び出しでまとめて渡す。
    - `git push` ではなく `mcp__github__push_files` を使う理由: contributionsの草に反映させるため。
 6. push後、`git fetch origin main && git reset --hard origin/main` でローカルをリモートに合わせる。
