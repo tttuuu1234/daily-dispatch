@@ -18,7 +18,7 @@ user_invocable: true
    - 1行目: 変更の要約
    - 必要なら2行目以降に補足
 6. `git push -u origin <ブランチ名>` でpushする。
-7. 同じブランチのオープンなPRがあるか `mcp__github__list_pull_requests`（owner: `tttuuu1234`, repo: `life`, head: `tttuuu1234:<ブランチ名>`）で確認する。
+7. 同じブランチのオープンなPRがあるか `mcp__github__list_pull_requests`（owner: `tttuuu1234`, repo: `daily-dispatch`, head: `tttuuu1234:<ブランチ名>`）で確認する。
    - あれば新しく作らず、pushでそのPRが更新されたことを伝える。
    - なければ `mcp__github__create_pull_request` で作成する（base: `main`）。
 8. PRのタイトルと本文は日本語で書く。

@@ -58,7 +58,7 @@ description: 個人用ニュースレター「Daily Dispatch」の今日の号�
 
 ## 事前準備
 - .claude/skills/make-newspaper/template.html を読む。
-- docs/newspaper/archive/ の直近3号を読み、掲載済みの話題を把握する。
+- archive/ の直近3号を読み、掲載済みの話題を把握する。
 
 ## 手順
 1. セクションごとに別々にWeb検索して候補を集める。土曜以外はFlutterを検索しない。月曜だけ、今週のカレンダー用に公式発表予定・カンファレンス日程・リリース計画も検索する。
@@ -89,10 +89,10 @@ description: 個人用ニュースレター「Daily Dispatch」の今日の号�
 - 確認できない情報は載せない。憶測は書かない。件数が足りない場合は、載せられた分だけにして最後に不足を一行で報告する。
 
 ## 出力とpush
-1. 完成したHTMLを docs/newspaper/archive/YYYY-MM-DD.html(日本時間の日付)として保存する。同じ日のファイルがすでにあれば、上書きする。
-2. `python3 .claude/skills/make-newspaper/scripts/build_index.py` を実行して、docs/newspaper/index.html(バックナンバー一覧)を更新する。
-3. `git push` ではなく、`mcp__github__push_files` ツールでリポジトリ `tttuuu1234/life` のmainブランチに直接pushする(owner: `tttuuu1234`, repo: `life`, branch: `main`)。`git push` はClaude GitHub Appの資格情報で認証され、contributions(草)に反映されないため。
-   - files には、`docs/newspaper/archive/YYYY-MM-DD.html` と `docs/newspaper/index.html` の**2ファイルを、必ず1回の呼び出しでまとめて**渡す(別々に送ると、一覧が存在しない号を指す時間ができる)。内容は、保存したファイルをそのまま渡す。
+1. 完成したHTMLを archive/YYYY-MM-DD.html(日本時間の日付)として保存する。同じ日のファイルがすでにあれば、上書きする。
+2. `python3 .claude/skills/make-newspaper/scripts/build_index.py` を実行して、index.html(バックナンバー一覧)を更新する。
+3. `git push` ではなく、`mcp__github__push_files` ツールでリポジトリ `tttuuu1234/daily-dispatch` のmainブランチに直接pushする(owner: `tttuuu1234`, repo: `daily-dispatch`, branch: `main`)。`git push` はClaude GitHub Appの資格情報で認証され、contributions(草)に反映されないため。
+   - files には、`archive/YYYY-MM-DD.html` と `index.html` の**2ファイルを、必ず1回の呼び出しでまとめて**渡す(別々に送ると、一覧が存在しない号を指す時間ができる)。内容は、保存したファイルをそのまま渡す。
    - message は「YYYY年MM月DD日 第X号 発刊」とする(例: 2026年09月21日 第2号 発刊)。
 4. push前の2ファイルを別の場所に退避してから、`git fetch origin main && git reset --hard origin/main` でローカルをリモートに合わせる。`diff` で退避したファイルと一致することを確認し、一致しなければ差分を直して再pushする。
 5. 最後に、その日のトップ記事の見出しと、セクションごとの掲載件数を数行で報告する。本文を読めずに載せなかった記事があれば、その旨も一行添える。

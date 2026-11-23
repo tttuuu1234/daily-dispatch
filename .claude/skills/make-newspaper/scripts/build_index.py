@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""docs/newspaper/archive/*.html から、バックナンバー一覧 docs/newspaper/index.html を作る。"""
+"""archive/*.html から、バックナンバー一覧 index.html を作る。"""
 import datetime
 import html
 import pathlib
 import re
 
 REPO = pathlib.Path(__file__).resolve().parents[4]
-OUT = REPO / "docs" / "newspaper"
+OUT = REPO
 ISSUES = OUT / "archive"
 WEEK = "月火水木金土日"
 
@@ -55,7 +55,7 @@ def main():
 
     page = TEMPLATE.replace("{{BODY}}", "\n".join(body)).replace("{{TOTAL}}", str(len(items)))
     (OUT / "index.html").write_text(page, encoding="utf-8")
-    print(f"docs/newspaper/index.html を更新しました({len(items)}号)")
+    print(f"index.html を更新しました({len(items)}号)")
 
 
 TEMPLATE = """<!DOCTYPE html>
@@ -104,7 +104,6 @@ a:focus-visible { outline: 2px solid var(--spot); outline-offset: 2px; }
 .dt { font-family: var(--display); font-size: 14px; }
 .tp { font-size: 14.5px; }
 .ct { font-size: 12px; color: var(--sub); white-space: nowrap; }
-.crumb { margin: 0 0 8px; font-size: 12px; }
 .foot { margin-top: 24px; padding-top: 10px; border-top: 6px solid var(--ink); text-align: center; font-size: 12px; color: var(--sub); }
 @media (max-width: 600px) {
   .list a { grid-template-columns: auto 1fr auto; }
@@ -114,7 +113,6 @@ a:focus-visible { outline: 2px solid var(--spot); outline-offset: 2px; }
 </head>
 <body>
 <div class="paper">
-  <p class="crumb"><a href="../index.html">life 入口へ</a></p>
   <header class="head"><p>TECH &amp; LIFE</p><h1>Daily Dispatch</h1><span>バックナンバー {{TOTAL}}号</span></header>
   {{BODY}}
   <footer class="foot">Daily Dispatch は自動編集の個人用日刊紙です。</footer>
