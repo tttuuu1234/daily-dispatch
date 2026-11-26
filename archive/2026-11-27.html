@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Daily Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #d8d8ce; --paper2: #cbcbc0; --ink: #1d1d1a; --sub: #56564f;
+  --spot: #22398b; --spot-soft: rgba(34,57,139,.30); --on-spot: #fff;
+  --display: "Zen Antique", "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --text: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+    --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+  --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; counter-reset: men; color: var(--ink);
+  font-family: var(--text); font-size: 15px; line-height: 1.8;
+  background-color: var(--paper);
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) .7px, transparent .9px);
+  background-size: 4px 4px;
+}
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--spot); outline-offset: 2px; }
+.paper { max-width: 1180px; margin: 0 auto; padding: 16px 18px 40px; }
+
+/* ===== 題字 ===== */
+.masthead {
+  display: grid; grid-template-columns: 96px 1fr 132px;
+  border-top: 6px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--paper2);
+}
+.mh-side { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 6px; border-right: 1px solid var(--ink); }
+.mh-side .tate { writing-mode: vertical-rl; font-family: var(--display); font-size: 30px; letter-spacing: .3em; line-height: 1; }
+.mh-side .issue { width: 100%; padding-top: 6px; border-top: 1px solid var(--ink); text-align: center; font-family: var(--display); font-size: 14px; }
+.mh-title { min-width: 0; padding: 8px 12px 10px; text-align: center; }
+.mh-title .kicker { margin: 0; font-family: var(--display); font-size: 12px; letter-spacing: .5em; color: var(--spot); }
+.mh-title h1 {
+  margin: 0; font-family: var(--display); font-weight: 400; line-height: 1.05;
+  font-size: clamp(38px, 8.4vw, 96px); text-shadow: 3px 3px 0 var(--spot-soft);
+}
+.mh-title .sub { margin: 4px 0 0; font-size: 13px; letter-spacing: .3em; color: var(--sub); }
+.mh-date { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 6px; border-left: 1px solid var(--ink); font-family: var(--display); line-height: 1.2; }
+.mh-date .ym { font-size: 13px; letter-spacing: .1em; }
+.mh-date .d { font-size: 58px; line-height: 1; color: var(--spot); }
+.mh-date .w { margin-top: 4px; padding-top: 3px; border-top: 1px solid var(--ink); font-size: 14px; letter-spacing: .2em; }
+
+/* ===== 号外 ===== */
+.urgent { display: flex; margin: 14px 0 0; border: 3px solid var(--ink); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--spot-soft) 9px 10px); }
+.urgent .tag { writing-mode: vertical-rl; padding: 8px 9px; background: var(--spot); color: var(--on-spot); font-family: var(--display); font-size: 24px; letter-spacing: .2em; }
+.urgent .body { flex: 1; padding: 8px 14px; background: color-mix(in srgb, var(--paper) 88%, transparent); }
+.urgent h2 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 20px; }
+.urgent ul { margin: 0; padding-left: 1.2em; }
+.urgent li { margin-bottom: 4px; }
+
+/* ===== 紙面の骨格 ===== */
+.main { margin-top: 18px; }
+.men { margin: 0 0 26px; }
+.men-head { display: flex; align-items: stretch; margin: 0 0 10px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; }
+.men-head .no { display: grid; place-items: center; margin-right: -6px; padding: 4px 18px 4px 12px; background: var(--spot); color: var(--on-spot); font-size: 15px; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+.men-head .no::before { counter-increment: men; content: "第" counter(men) "面"; }
+.men-head .ttl { padding: 4px 14px; font-size: 22px; letter-spacing: .12em; }
+.men-head .en { align-self: center; margin-left: auto; padding-right: 12px; font-family: var(--text); font-size: 11px; letter-spacing: .3em; opacity: .85; }
+.cols { column-count: 2; column-gap: 30px; column-rule: 1px dotted var(--sub); }
+
+/* ===== 記事 ===== */
+.story { break-inside: avoid; container-type: inline-size; padding: 10px 0 14px; border-bottom: 1px dotted var(--sub); }
+.story.top { column-span: all; padding: 8px 0 16px; border-bottom: 3px double var(--ink); }
+.story.top::before { content: "トップ記事"; display: inline-block; margin-bottom: 6px; padding: 0 9px; background: var(--ink); color: var(--paper); font-family: var(--display); font-size: 11px; letter-spacing: .25em; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin: 0 0 3px; font-family: var(--display); font-size: 12px; }
+.cat { display: inline-block; padding: 0 7px; border: 1px solid var(--spot); color: var(--spot); font-size: 11px; letter-spacing: .14em; }
+.meta a { color: var(--sub); text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
+.hd {
+  margin: 0 0 6px; font-family: var(--display); font-weight: 400; line-height: 1.3;
+  font-size: clamp(18px, 7.2cqi, 26px); text-shadow: 1.5px 1.5px 0 var(--spot-soft);
+  text-wrap: balance; word-break: auto-phrase;
+}
+.hd.l { font-size: clamp(26px, 5.2cqi, 44px); line-height: 1.22; text-shadow: 2px 2px 0 var(--spot-soft); }
+.hd.s { font-size: clamp(16px, 5.8cqi, 20px); }
+.hd a { text-decoration: none; }
+.hd a:hover { text-decoration: underline; text-decoration-color: var(--spot); }
+.story p { margin: 0 0 6px; text-align: justify; font-size: 14.5px; line-height: 1.85; }
+.story strong { font-weight: 900; }
+.story em { font-style: normal; border-bottom: 1px solid var(--spot); }
+.story code { font-family: inherit; padding: 0 3px; background: var(--spot-soft); }
+.story figure { margin: 0 0 8px; }
+.story figure img { display: block; width: 100%; height: auto; border: 1px solid var(--ink); filter: grayscale(1) contrast(1.12); }
+.story figcaption { margin-top: 3px; font-size: 11.5px; color: var(--sub); }
+.more { display: inline-block; padding: 0 9px; border: 1px solid var(--spot); color: var(--spot); font-family: var(--display); font-size: 12px; text-decoration: none; }
+.more:hover { background: var(--spot); color: var(--on-spot); }
+.more::before { content: "\25B6\00a0"; font-size: 9px; }
+
+/* ===== 下の欄 ===== */
+.bottom { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; align-items: start; margin-top: 8px; padding-top: 22px; border-top: 3px double var(--ink); }
+.side-box { padding: 0 12px 12px; border: 2px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 3px; background: color-mix(in srgb, var(--paper2) 55%, transparent); }
+.side-head { display: flex; justify-content: space-between; align-items: baseline; margin: 0 -12px 10px; padding: 4px 12px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; font-size: 15px; letter-spacing: .2em; }
+.side-head small { font-family: var(--text); font-size: 10px; letter-spacing: .3em; opacity: .85; }
+.bottom .story { padding: 0; border: 0; }
+.bottom .quote { grid-column: 1 / -1; }
+.bottom .solo { grid-column: 1 / -1; width: 100%; max-width: 680px; justify-self: center; }
+.quote { padding-bottom: 14px; }
+.quote .quote-body { max-width: 860px; margin: 12px auto 10px; text-align: center; }
+.quote blockquote { margin: 0; font-family: var(--display); font-size: clamp(22px, 3.4vw, 36px); line-height: 1.7; letter-spacing: .06em; text-shadow: 2px 2px 0 var(--spot-soft); text-wrap: balance; }
+.quote blockquote::before { content: "\300C"; }
+.quote blockquote::after { content: "\300D"; }
+.quote .who { margin: 10px 0 0; font-family: var(--display); font-size: clamp(20px, 2.4vw, 28px); letter-spacing: .3em; color: var(--spot); }
+.quote .who::before { content: "\2015\00a0"; }
+.quote .bio { max-width: 860px; margin: 6px auto 12px; font-size: 14px; line-height: 1.9; text-align: left; }
+.quote .bio .cat { margin-right: 8px; }
+.quote .src { margin: 0 auto; max-width: 860px; padding-top: 8px; border-top: 1px dotted var(--sub); text-align: center; font-size: 12px; line-height: 1.7; color: var(--sub); }
+
+.okuzuke { margin-top: 24px; padding-top: 10px; border-top: 6px solid var(--ink); text-align: center; font-size: 12px; color: var(--sub); }
+.okuzuke p { margin: 0 0 2px; }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 920px) {
+  .bottom { grid-template-columns: 1fr 1fr; }
+  .bottom .quote { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .paper { padding: 12px 12px 32px; }
+  .masthead { grid-template-columns: 64px 1fr; }
+  .mh-side .tate { font-size: 22px; }
+  .mh-date { grid-column: 1 / -1; flex-direction: row; gap: 10px; border-left: 0; border-top: 1px solid var(--ink); }
+  .mh-date .d { font-size: 34px; }
+  .mh-date .w { margin: 0; padding: 0 0 0 10px; border-top: 0; border-left: 1px solid var(--ink); }
+  .cols { column-count: 1; }
+  .bottom { grid-template-columns: 1fr; }
+  .story p { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <header class="masthead">
+    <div class="mh-side">
+      <span class="tate">日刊</span>
+      <span class="issue">第69号</span>
+    </div>
+    <div class="mh-title">
+      <p class="kicker">TECH &amp; LIFE</p>
+      <h1>Daily Dispatch</h1>
+      <p class="sub">技術と暮らしのニュース</p>
+    </div>
+    <div class="mh-date">
+      <span class="ym">2026年11月</span>
+      <span class="d">27</span>
+      <span class="w">金曜日</span>
+    </div>
+  </header>
+
+  <section class="urgent">
+    <span class="tag">号外</span>
+    <div class="body">
+      <h2>緊急のお知らせ</h2>
+      <ul>
+        <li><strong>Drupal</strong>本体に乗っ取りの穴(CVE-2026-136716)、すでに悪用を確認。<code>install.php</code>を外から開ける状態で放置したサイトが狙われる。11.4.14、11.3.23、10.6.23へ更新し、管理者(user 1)のメールアドレスとパスワードを確認する。<a class="more" href="https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <main class="main">
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">AI</span><span class="en">AI NEWS &amp; AI USE</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50646108" target="_blank" rel="noopener noreferrer">Hacker News · 27h, 1947p, 1790 comments</a></p>
+            <h3 class="hd l"><a href="https://scottaaronson.blog/?p=10379" target="_blank" rel="noopener noreferrer">「AIはP≠NPの証明へ山を登っている」　懐疑派アーロンソン氏、相次ぐ数学の解決に態度を一変</a></h3>
+            <p>量子計算の第一人者<strong>スコット・アーロンソン</strong>氏が、リーマン予想、VP≠VNP、行列積の指数9/4など、<strong>OpenAI</strong>と<strong>Anthropic</strong>が出した結果を並べ、<em>Lean</em>の検証が付く限り正しいとみなすと書いた。人間が証明を理解するには何年もかかるとも言う。暗号を破る結果を各社が持っているとの話も複数から聞いたが、確認できていないので広めないとした。</p>
+            <p>証明そのものが暮らしを変えるわけではない。ただ、これだけの仕事ができるAIがあることは、経済に大きく効くかもしれないと氏は見る。この1週間の数学のニュースをどう受け止めればいいかが、この1本で分かる。</p>
+            <p><a class="more" href="https://scottaaronson.blog/?p=10379" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50653477" target="_blank" rel="noopener noreferrer">Hacker News · 12h, 165p, 169 comments</a></p>
+            <h3 class="hd"><a href="https://techstackups.com/articles/google-workspace-ai-agents-mcp/" target="_blank" rel="noopener noreferrer">Google、2月からAIエージェントのGmail・Drive利用を自社MCP経由に限定　なのにGmail版はメールを送れない</a></h3>
+            <p><strong>Google</strong>はWorkspaceの<em>MCPサーバー</em>8種を正式版にし、API規約も変えた。2027年2月1日から、エージェントがREST APIを直接呼ぶと規約違反になる。公開版のGmailサーバーは下書きまでで、送信も返信もできない。Workspaceとつなぐ自作ツールや社内ボットは、今のうちに作り直しの見積もりが要る。</p>
+            <p><a class="more" href="https://techstackups.com/articles/google-workspace-ai-agents-mcp/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://b.hatena.ne.jp/entry/s/gigazine.net/news/20261126-nyt-warns-not-update-photoshop-ai-features/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 9h, 28 users</a></p>
+            <h3 class="hd"><a href="https://gigazine.net/news/20261126-nyt-warns-not-update-photoshop-ai-features/" target="_blank" rel="noopener noreferrer">NYT、契約写真家に「Photoshop 2027に上げるな」　気づかないうちに写真へ「AI生成」の印が付くおそれ</a></h3>
+            <figure><img src="https://i.gzn.jp/img/2026/11/26/nyt-warns-not-update-photoshop-ai-features/00.jpg" alt=""><figcaption>画像:GIGAZINE</figcaption></figure>
+            <p><strong>ニューヨーク・タイムズ</strong>の心配は、報道写真がAI製と見なされて読者の信頼を失うことだ。ツールの更新ひとつで、作った物の出どころの記録が勝手に書き換わることがある。AI機能が既定で組み込まれる道具を仕事で使う人には、ひとごとではない。</p>
+            <p><a class="more" href="https://gigazine.net/news/20261126-nyt-warns-not-update-photoshop-ai-features/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://news.ycombinator.com/item?id=50652527" target="_blank" rel="noopener noreferrer">Hacker News · 15h, 153p, 135 comments</a></p>
+            <h3 class="hd s"><a href="https://micjm.com/blog/openai-is-in-cost-control-mode/" target="_blank" rel="noopener noreferrer">GPT-6.2は「考える量」を削られたか　対戦形式の計測で、推論トークンが前世代より有意に減少</a></h3>
+            <p>評判の悪い<strong>Astra 6.2</strong>と<strong>Sol 6.2</strong>は、出力も推論も相手より少ない「考え足りない外れ値」だったという。OpenAIが認めた話ではなく筆者の推測だが、同じモデル名でも中身の割り当てが変わりうる。安定した出力が要る作業では、版ごとに確かめ直したい。</p>
+            <p><a class="more" href="https://micjm.com/blog/openai-is-in-cost-control-mode/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://b.hatena.ne.jp/entry/s/note.com/assuredjp/n/n6ec5f6544e0c" target="_blank" rel="noopener noreferrer">はてなブックマーク · 15h, 163 users</a></p>
+            <h3 class="hd"><a href="https://note.com/assuredjp/n/n6ec5f6544e0c" target="_blank" rel="noopener noreferrer">AIに書かせても「分からないまま」にしない　計画・設計・レビューに理解の工程を挟む6つの型</a></h3>
+            <figure><img src="https://assets.st-note.com/production/uploads/images/340852931/rectangle_large_type_2_c4cdc581a4de1ba76cc6b27c59597522.png?fit=bounds&amp;quality=85&amp;width=1280" alt=""><figcaption>画像:note(アシュアード)</figcaption></figure>
+            <p><strong>アシュアード</strong>の実践だ。計画は図にして隠れた仮定を表に出し、設計の問いは1画面に1問だけ出す。差分は画面の入口からドメインへ並べ直して読む。詰まったら<em>/learn</em>で5分のレッスンと確認テストを作らせる。AIが速く書くほど増える「理解の負債」を返していく手順として、そのまま真似できる。</p>
+            <p><a class="more" href="https://note.com/assuredjp/n/n6ec5f6544e0c" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://b.hatena.ne.jp/entry/s/anond.hatelabo.jp/20261126144022" target="_blank" rel="noopener noreferrer">はてなブックマーク · 16h, 179 users</a></p>
+            <h3 class="hd s"><a href="https://anond.hatelabo.jp/20261126144022" target="_blank" rel="noopener noreferrer">CLAUDE.mdは人が考えず、毎週Claude Codeに書き直させる　回すほど短くなる</a></h3>
+            <p>望ましい出力例をまとめておき、<code>claude -p</code>で試しながら、その出力に近づく最小の<em>CLAUDE.md</em>をClaude自身に探させる。結果はdotfilesへのPRで受け取る。モデルが変わると、昔は効いた指示がかえって邪魔になることがある。それを定期的に掃除する仕組みとして使える。</p>
+            <p><a class="more" href="https://anond.hatelabo.jp/20261126144022" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">ITニュース</span><span class="en">IT NEWS</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">IT</span><a href="https://news.ycombinator.com/item?id=50655278" target="_blank" rel="noopener noreferrer">Hacker News · 8h, 238p, 121 comments</a></p>
+            <h3 class="hd l"><a href="https://www.theregister.com/hpc/2026/11/26/45c-inlets-just-killed-the-chiller-most-people-havent-noticed-yet/5311831" target="_blank" rel="noopener noreferrer">冷却水45℃で「チラー」が要らなくなる　NVIDIAの新仕様、データセンターの電力と水を大きく減らす</a></h3>
+            <figure><img src="https://image.theregister.com/5311848.jpg?imageId=5311848&amp;x=0&amp;y=0&amp;cropw=100&amp;croph=100&amp;panox=0&amp;panoy=0&amp;panow=100&amp;panoh=100&amp;width=1200&amp;height=683" alt=""><figcaption>画像:The Register</figcaption></figure>
+            <p>液冷の入口温度は30〜35℃が普通だったが、<strong>NVIDIA</strong>は45℃を指定した。この温度なら屋上の乾式冷却器だけで熱を捨てられ、多くの地域で冷凍機が要らなくなる。推計では冷却の電力が5〜7割減り、水も8〜9割減る。AIデータセンターが電気と水を食うという批判への、技術側からの答えのひとつになる。</p>
+            <p><a class="more" href="https://www.theregister.com/hpc/2026/11/26/45c-inlets-just-killed-the-chiller-most-people-havent-noticed-yet/5311831" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/www.sakura.ad.jp/corporate/information/announcements/2026/11/26/1968226380/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 16h, 73 users</a></p>
+            <h3 class="hd"><a href="https://www.sakura.ad.jp/corporate/information/announcements/2026/11/26/1968226380/" target="_blank" rel="noopener noreferrer">さくらのレンタルサーバ、12月3日からサーバー上でのビルドとcrontabを停止</a></h3>
+            <p>セキュリティ強化のためで、12月10日にかけて順次止まる。作ったプログラムと設定済みのCRONはそのまま動くが、サーバー上での再ビルドはできなくなる。CRONの設定はコントロールパネルからに限られる。昔からの共用サーバーで動かしている趣味のツールや小さなAPIがあるなら、先に確かめておきたい。</p>
+            <p><a class="more" href="https://www.sakura.ad.jp/corporate/information/announcements/2026/11/26/1968226380/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/forest.watch.impress.co.jp/docs/news/2159319.html" target="_blank" rel="noopener noreferrer">はてなブックマーク · 15h, 112 users</a></p>
+            <h3 class="hd s"><a href="https://forest.watch.impress.co.jp/docs/news/2159319.html" target="_blank" rel="noopener noreferrer">Bitwarden、Windows 11とmacOSの標準パスキー画面に対応　拡張機能なしでサインイン</a></h3>
+            <figure><img src="https://forest.watch.impress.co.jp/img/wf/list/2159/319/bitwarden.jpg" alt=""><figcaption>画像:窓の杜</figcaption></figure>
+            <p>OSのパスキー画面から、<strong>Bitwarden</strong>の保管庫へ保存もサインインもできるようになった。端末やOSの縛りを受けずにパスキーを持ち歩ける道がまた広がった。アプリにパスキーのログインを入れる側にとっても、利用者がどこに保存するかの前提が変わる。</p>
+            <p><a class="more" href="https://forest.watch.impress.co.jp/docs/news/2159319.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">セキュリティ</span><span class="en">SECURITY</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html" target="_blank" rel="noopener noreferrer">The Hacker News · 11/26</a></p>
+            <h3 class="hd l"><a href="https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html" target="_blank" rel="noopener noreferrer">Drupalにサイト乗っ取りの穴、すでに悪用　前回の修正後も「インストーラーが開いたまま」のサイトが狙われる</a></h3>
+            <figure><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiy2EcytpsKiKLhUfvQEADKBG6Ht2NprR2VIhIXPJcNQMIGqKT20l0afBPUVhehKFhRzpkHvl3Qu_qaPjFL3L4UsLYH3L4C1DM63zqskhJV1UAjaPqONaEbNkBFsxVDX2jpPZrMym52WvBx2pHktUiRfdXOcp_23xjTdUOxxjxJtI906XLMmw258Bjah1J2/s1600/drupal-rce.png" alt=""><figcaption>画像:The Hacker News</figcaption></figure>
+            <p>CVE-2026-136716は、先に<strong>CISA</strong>が悪用を確認した<em>Fail2Install</em>の残りを塞ぐ修正だ。管理画面からは危ない状態が見えにくい。ネットから見えるDrupalは約5.58万あり、そのうち約1.5万は修正の出ない古い8・9系だという。会社や知人のサイトがDrupalなら、ログで管理者アカウントの変更を確認したい。</p>
+            <p><a class="more" href="https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://news.ycombinator.com/item?id=50647181" target="_blank" rel="noopener noreferrer">Hacker News · 25h, 405p, 256 comments</a></p>
+            <h3 class="hd"><a href="https://www.openwall.com/lists/oss-security/2026/11/25/9" target="_blank" rel="noopener noreferrer">Ubuntu、遠隔から突けるカーネルの穴を9日たっても直さず　他のディストリは公開時に修正済み</a></h3>
+            <p>研究者の<strong>ハンノ・ベック</strong>氏が、TCPのメモリ破壊「NoisyTCP」とAMDのKVM脱出が未修正のままだと指摘した。古いカーネルに修正を移植するUbuntuのやり方では追いつかない、というのが氏の見立てだ。CIやサーバーの土台にUbuntuを使っているなら、修正の速さもディストリを選ぶ基準に入れたい。</p>
+            <p><a class="more" href="https://www.openwall.com/lists/oss-security/2026/11/25/9" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://b.hatena.ne.jp/entry/s/news.web.nhk/newsweb/na/nd-20261126de81692" target="_blank" rel="noopener noreferrer">はてなブックマーク · 17h, 124 users</a></p>
+            <h3 class="hd s"><a href="https://news.web.nhk/newsweb/na/nd-20261126de81692" target="_blank" rel="noopener noreferrer">アディーレ法律事務所、約1800件の個人情報が漏えい　メール配信の委託先に不正アクセス</a></h3>
+            <p>侵入されたのは事務所でなく、メール配信を請け負う会社のサーバーだった。法律相談の窓口は、人に知られたくない事情が集まる場所だ。外部のメール配信サービスに顧客データを渡す仕組みは多くのアプリにもあり、委託先も攻撃の入り口になることを示している。</p>
+            <p><a class="more" href="https://news.web.nhk/newsweb/na/nd-20261126de81692" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+  </main>
+
+  <div class="bottom">
+      <section class="side-box solo">
+        <h2 class="side-head">暮らし欄<small>CAREER</small></h2>
+        <article class="story">
+          <p class="meta"><span class="cat">CAREER</span><a href="https://news.ycombinator.com/item?id=50639698" target="_blank" rel="noopener noreferrer">Hacker News · 38h, 369p, 290 comments</a></p>
+          <h3 class="hd"><a href="https://www.iankduncan.com/engineering/2026-11-19-smart-people-who-give-a-shit-use-tools" target="_blank" rel="noopener noreferrer">分かれ目は「AIを使うか」ではなく「本気で気にかけるか」　LLMは使う人をそのまま増幅する</a></h3>
+          <p><strong>イアン・ダンカン</strong>氏は、丁寧な人はAIで形式仕様やミューテーションテストまで手が届き、雑な人は貼り付けて済ませるだけだと書く。手を抜く人はStack Overflowの頃からいた。持ち主意識を測る問いは3つある。深夜2時に壊れたら誰が答えるか、レビューで「モデルが書いた」が通るか、無茶な納期に異を唱えられるか。自分の働き方を点検するのにちょうどいい。</p>
+          <p><a class="more" href="https://www.iankduncan.com/engineering/2026-11-19-smart-people-who-give-a-shit-use-tools" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+        </article>
+      </section>
+
+      <section class="side-box quote">
+        <h2 class="side-head">きょうの名言<small>QUOTE</small></h2>
+        <div class="quote-body">
+          <blockquote>第一の原則は、自分を欺かないことだ。そして自分こそ、いちばんだましやすい相手なのである</blockquote>
+          <p class="who">リチャード・ファインマン</p>
+        </div>
+        <p class="bio"><span class="cat">人物</span>量子電磁力学の研究で1965年にノーベル物理学賞を受けた、アメリカの物理学者。この言葉は、形だけまねて中身のない研究を「カーゴ・カルト・サイエンス」と呼んで戒めた、カリフォルニア工科大学の卒業式講演にある。都合の悪い結果も含めてすべて示す誠実さこそ科学者の責任だ、と学生に説いた。</p>
+        <p class="src">アメリカの物理学者、1918〜1988年<br>出典:カリフォルニア工科大学 卒業式講演「Cargo Cult Science」(1974年)。のち『ご冗談でしょう、ファインマンさん』(1985年)に収録</p>
+      </section>
+  </div>
+
+  <footer class="okuzuke">
+    <p>Daily Dispatch は自動編集の個人用日刊紙です。</p>
+    <p>要約は各リンク先の元記事に基づきます。詳しくは元記事をご覧ください。</p>
+  </footer>
+</div>
+</body>
+</html>
