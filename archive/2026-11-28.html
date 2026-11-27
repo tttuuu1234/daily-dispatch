@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Daily Dispatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #d8d8ce; --paper2: #cbcbc0; --ink: #1d1d1a; --sub: #56564f;
+  --spot: #22398b; --spot-soft: rgba(34,57,139,.30); --on-spot: #fff;
+  --display: "Zen Antique", "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --text: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+    --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15161b; --paper2: #1d1e26; --ink: #e7e4d8; --sub: #a9a79a;
+  --spot: #93a8ff; --spot-soft: rgba(147,168,255,.28); --on-spot: #15161b;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; counter-reset: men; color: var(--ink);
+  font-family: var(--text); font-size: 15px; line-height: 1.8;
+  background-color: var(--paper);
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) .7px, transparent .9px);
+  background-size: 4px 4px;
+}
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--spot); outline-offset: 2px; }
+.paper { max-width: 1180px; margin: 0 auto; padding: 16px 18px 40px; }
+
+/* ===== 題字 ===== */
+.masthead {
+  display: grid; grid-template-columns: 96px 1fr 132px;
+  border-top: 6px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--paper2);
+}
+.mh-side { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 6px; border-right: 1px solid var(--ink); }
+.mh-side .tate { writing-mode: vertical-rl; font-family: var(--display); font-size: 30px; letter-spacing: .3em; line-height: 1; }
+.mh-side .issue { width: 100%; padding-top: 6px; border-top: 1px solid var(--ink); text-align: center; font-family: var(--display); font-size: 14px; }
+.mh-title { min-width: 0; padding: 8px 12px 10px; text-align: center; }
+.mh-title .kicker { margin: 0; font-family: var(--display); font-size: 12px; letter-spacing: .5em; color: var(--spot); }
+.mh-title h1 {
+  margin: 0; font-family: var(--display); font-weight: 400; line-height: 1.05;
+  font-size: clamp(38px, 8.4vw, 96px); text-shadow: 3px 3px 0 var(--spot-soft);
+}
+.mh-title .sub { margin: 4px 0 0; font-size: 13px; letter-spacing: .3em; color: var(--sub); }
+.mh-date { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 6px; border-left: 1px solid var(--ink); font-family: var(--display); line-height: 1.2; }
+.mh-date .ym { font-size: 13px; letter-spacing: .1em; }
+.mh-date .d { font-size: 58px; line-height: 1; color: var(--spot); }
+.mh-date .w { margin-top: 4px; padding-top: 3px; border-top: 1px solid var(--ink); font-size: 14px; letter-spacing: .2em; }
+
+/* ===== 号外 ===== */
+.urgent { display: flex; margin: 14px 0 0; border: 3px solid var(--ink); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--spot-soft) 9px 10px); }
+.urgent .tag { writing-mode: vertical-rl; padding: 8px 9px; background: var(--spot); color: var(--on-spot); font-family: var(--display); font-size: 24px; letter-spacing: .2em; }
+.urgent .body { flex: 1; padding: 8px 14px; background: color-mix(in srgb, var(--paper) 88%, transparent); }
+.urgent h2 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 20px; }
+.urgent ul { margin: 0; padding-left: 1.2em; }
+.urgent li { margin-bottom: 4px; }
+
+/* ===== 紙面の骨格 ===== */
+.main { margin-top: 18px; }
+.men { margin: 0 0 26px; }
+.men-head { display: flex; align-items: stretch; margin: 0 0 10px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; }
+.men-head .no { display: grid; place-items: center; margin-right: -6px; padding: 4px 18px 4px 12px; background: var(--spot); color: var(--on-spot); font-size: 15px; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+.men-head .no::before { counter-increment: men; content: "第" counter(men) "面"; }
+.men-head .ttl { padding: 4px 14px; font-size: 22px; letter-spacing: .12em; }
+.men-head .en { align-self: center; margin-left: auto; padding-right: 12px; font-family: var(--text); font-size: 11px; letter-spacing: .3em; opacity: .85; }
+.cols { column-count: 2; column-gap: 30px; column-rule: 1px dotted var(--sub); }
+
+/* ===== 記事 ===== */
+.story { break-inside: avoid; container-type: inline-size; padding: 10px 0 14px; border-bottom: 1px dotted var(--sub); }
+.story.top { column-span: all; padding: 8px 0 16px; border-bottom: 3px double var(--ink); }
+.story.top::before { content: "トップ記事"; display: inline-block; margin-bottom: 6px; padding: 0 9px; background: var(--ink); color: var(--paper); font-family: var(--display); font-size: 11px; letter-spacing: .25em; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin: 0 0 3px; font-family: var(--display); font-size: 12px; }
+.cat { display: inline-block; padding: 0 7px; border: 1px solid var(--spot); color: var(--spot); font-size: 11px; letter-spacing: .14em; }
+.meta a { color: var(--sub); text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
+.hd {
+  margin: 0 0 6px; font-family: var(--display); font-weight: 400; line-height: 1.3;
+  font-size: clamp(18px, 7.2cqi, 26px); text-shadow: 1.5px 1.5px 0 var(--spot-soft);
+  text-wrap: balance; word-break: auto-phrase;
+}
+.hd.l { font-size: clamp(26px, 5.2cqi, 44px); line-height: 1.22; text-shadow: 2px 2px 0 var(--spot-soft); }
+.hd.s { font-size: clamp(16px, 5.8cqi, 20px); }
+.hd a { text-decoration: none; }
+.hd a:hover { text-decoration: underline; text-decoration-color: var(--spot); }
+.story p { margin: 0 0 6px; text-align: justify; font-size: 14.5px; line-height: 1.85; }
+.story strong { font-weight: 900; }
+.story em { font-style: normal; border-bottom: 1px solid var(--spot); }
+.story code { font-family: inherit; padding: 0 3px; background: var(--spot-soft); }
+.story figure { margin: 0 0 8px; }
+.story figure img { display: block; width: 100%; height: auto; border: 1px solid var(--ink); filter: grayscale(1) contrast(1.12); }
+.story figcaption { margin-top: 3px; font-size: 11.5px; color: var(--sub); }
+.more { display: inline-block; padding: 0 9px; border: 1px solid var(--spot); color: var(--spot); font-family: var(--display); font-size: 12px; text-decoration: none; }
+.more:hover { background: var(--spot); color: var(--on-spot); }
+.more::before { content: "\25B6\00a0"; font-size: 9px; }
+
+/* ===== 下の欄 ===== */
+.bottom { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; align-items: start; margin-top: 8px; padding-top: 22px; border-top: 3px double var(--ink); }
+.side-box { padding: 0 12px 12px; border: 2px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 3px; background: color-mix(in srgb, var(--paper2) 55%, transparent); }
+.side-head { display: flex; justify-content: space-between; align-items: baseline; margin: 0 -12px 10px; padding: 4px 12px; background: var(--ink); color: var(--paper); font-family: var(--display); font-weight: 400; font-size: 15px; letter-spacing: .2em; }
+.side-head small { font-family: var(--text); font-size: 10px; letter-spacing: .3em; opacity: .85; }
+.bottom .story { padding: 0; border: 0; }
+.bottom .quote { grid-column: 1 / -1; }
+.bottom .solo { grid-column: 1 / -1; width: 100%; max-width: 680px; justify-self: center; }
+.quote { padding-bottom: 14px; }
+.quote .quote-body { max-width: 860px; margin: 12px auto 10px; text-align: center; }
+.quote blockquote { margin: 0; font-family: var(--display); font-size: clamp(22px, 3.4vw, 36px); line-height: 1.7; letter-spacing: .06em; text-shadow: 2px 2px 0 var(--spot-soft); text-wrap: balance; }
+.quote blockquote::before { content: "\300C"; }
+.quote blockquote::after { content: "\300D"; }
+.quote .who { margin: 10px 0 0; font-family: var(--display); font-size: clamp(20px, 2.4vw, 28px); letter-spacing: .3em; color: var(--spot); }
+.quote .who::before { content: "\2015\00a0"; }
+.quote .bio { max-width: 860px; margin: 6px auto 12px; font-size: 14px; line-height: 1.9; text-align: left; }
+.quote .bio .cat { margin-right: 8px; }
+.quote .src { margin: 0 auto; max-width: 860px; padding-top: 8px; border-top: 1px dotted var(--sub); text-align: center; font-size: 12px; line-height: 1.7; color: var(--sub); }
+
+.okuzuke { margin-top: 24px; padding-top: 10px; border-top: 6px solid var(--ink); text-align: center; font-size: 12px; color: var(--sub); }
+.okuzuke p { margin: 0 0 2px; }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 920px) {
+  .bottom { grid-template-columns: 1fr 1fr; }
+  .bottom .quote { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .paper { padding: 12px 12px 32px; }
+  .masthead { grid-template-columns: 64px 1fr; }
+  .mh-side .tate { font-size: 22px; }
+  .mh-date { grid-column: 1 / -1; flex-direction: row; gap: 10px; border-left: 0; border-top: 1px solid var(--ink); }
+  .mh-date .d { font-size: 34px; }
+  .mh-date .w { margin: 0; padding: 0 0 0 10px; border-top: 0; border-left: 1px solid var(--ink); }
+  .cols { column-count: 1; }
+  .bottom { grid-template-columns: 1fr; }
+  .story p { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <header class="masthead">
+    <div class="mh-side">
+      <span class="tate">日刊</span>
+      <span class="issue">第70号</span>
+    </div>
+    <div class="mh-title">
+      <p class="kicker">TECH &amp; LIFE</p>
+      <h1>Daily Dispatch</h1>
+      <p class="sub">技術と暮らしのニュース</p>
+    </div>
+    <div class="mh-date">
+      <span class="ym">2026年11月</span>
+      <span class="d">28</span>
+      <span class="w">土曜日</span>
+    </div>
+  </header>
+
+  <main class="main">
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">AI</span><span class="en">AI NEWS &amp; AI USE</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">AI</span><a href="https://b.hatena.ne.jp/entry/s/www.itmedia.co.jp/news/article/2611/26/2000003479/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 41h, 20 users</a></p>
+            <h3 class="hd l"><a href="https://www.itmedia.co.jp/news/article/2611/26/2000003479/" target="_blank" rel="noopener noreferrer">破産したCharacter.AI、2100万人分のチャット履歴を競売へ　41州とワシントンD.C.の司法長官が「売らせるな」</a></h3>
+            <figure><img src="https://www.itmedia.co.jp/news/article/ogp/2611/26/2000003479/10013033/2048" alt=""><figcaption>画像:ITmedia NEWS</figcaption></figure>
+            <p>売られようとしているのは、<strong>Character.AI</strong>の「セラピスト」botに自傷や自殺念慮を打ち明けた会話など、未成年210万人超を含む利用者の最も私的な記録だ。同社が付けたリスクスコアや位置情報とひも付いているうえ、売却条件では買い手にプライバシーポリシーを守る義務も削除要求に応じる義務もない。入札者として名前が出ているのは、11月13日に設立された出資者不明の1社だけ。競売は<strong>12月1日</strong>に予定されている。AIに打ち明けた言葉が、会社が潰れたときにただの資産として扱われうる。その前例になるかどうかの局面だ。</p>
+            <p><a class="more" href="https://www.itmedia.co.jp/news/article/2611/26/2000003479/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/" target="_blank" rel="noopener noreferrer">TechCrunch · 11/26</a></p>
+            <h3 class="hd"><a href="https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/" target="_blank" rel="noopener noreferrer">NVIDIA、マレーシアなど東南アジア4か国へのサーバー出荷を止める　中国企業の「遠隔利用」対策で</a></h3>
+            <p>中国企業が、東南アジアのデータセンターにある<strong>NVIDIA</strong>製チップを遠隔で借りて使う抜け穴があった。米商務省は11月にこれを塞いでおり、出荷停止はその余波だ。こうした国外の拠点は、中国のAI計算資源の約24%を担っているという推計もある。再開の時期は決まっておらず、<strong>Dell</strong>や<strong>Super Micro</strong>経由の供給、東南アジアで続くデータセンター建設の行方にも響く。</p>
+            <p><a class="more" href="https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://b.hatena.ne.jp/entry/s/www.cnn.co.jp/usa/35255487.html" target="_blank" rel="noopener noreferrer">はてなブックマーク · 21h, 131 users</a></p>
+            <h3 class="hd"><a href="https://www.cnn.co.jp/usa/35255487.html" target="_blank" rel="noopener noreferrer">米FCC、SpaceXに計算モジュール100万基の打ち上げを承認　宇宙にAIデータセンター「スターマインド」</a></h3>
+            <figure><img src="https://www.cnn.co.jp/storage/2026/11/27/fb305d2fd48c401b962cdc228b013f98/gettyimages-2158701295-20261126101911165.jpg" alt=""><figcaption>画像:CNN.co.jp</figcaption></figure>
+            <p>AIの電力と土地の不足を、宇宙で解こうという構想に規制当局が青信号を出した。ただし<strong>SpaceX</strong>自身も、6月の上場前に出した書類で、宇宙データセンターは「実証されていない」技術で商業的に成り立たない可能性があると認めている。承認は事業の実現性を保証するものではない。</p>
+            <p><a class="more" href="https://www.cnn.co.jp/usa/35255487.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI</span><a href="https://www.itmedia.co.jp/aiplus/article/2611/27/2000003505/" target="_blank" rel="noopener noreferrer">ITmedia NEWS · 11/27</a></p>
+            <h3 class="hd s"><a href="https://www.itmedia.co.jp/aiplus/article/2611/27/2000003505/" target="_blank" rel="noopener noreferrer">生成AIで人を増やした部門は「IT」が55%、減らしたのは経理・人事　大企業の部長700人にデロイト調査</a></h3>
+            <p>大企業の約半数が、生成AIに合わせて人の配置を変えている。全社で導入した割合は<strong>62.1%</strong>まで上がり、<strong>デロイト</strong>は競争の軸が投資額から「業務にどこまで組み込めたか」へ移ったとみる。IT部門は人が集まる側にいる。その分、AIを業務に組み込む役が求められているということでもある。</p>
+            <p><a class="more" href="https://www.itmedia.co.jp/aiplus/article/2611/27/2000003505/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://news.ycombinator.com/item?id=50660180" target="_blank" rel="noopener noreferrer">Hacker News · 24h, 1061p, 497 comments</a></p>
+            <h3 class="hd"><a href="https://janlukas.blog/posts/ai-self-hosting" target="_blank" rel="noopener noreferrer">AIでセルフホストがまた楽しくなった　インフラ設定を全部Gitに置き、エージェントにコードとして直させる</a></h3>
+            <p>コツは、サーバーの設定を<em>Docker Compose</em>や<em>NixOS</em>の宣言的な設定としてすべてリポジトリに置くことだ。そうすれば、エージェントにふつうの開発と同じように直させられる。更新は<strong>Renovate</strong>のPRをスマホからマージするだけで、ビルドからデプロイまで流れる。AIなしなら1週間と見込んだイメージ作りは半日で済んだ。それでも、エージェントの変更の責任は自分にあると念を押している。HNで1000点を超えた体験記だ。</p>
+            <p><a class="more" href="https://janlukas.blog/posts/ai-self-hosting" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">AI USE</span><a href="https://b.hatena.ne.jp/entry/s/tech.kickflow.co.jp/entry/2026/11/27/154920" target="_blank" rel="noopener noreferrer">はてなブックマーク · 15h, 51 users</a></p>
+            <h3 class="hd"><a href="https://tech.kickflow.co.jp/entry/2026/11/27/154920" target="_blank" rel="noopener noreferrer">AIに「タスク」でなく「役割」を渡す　毎朝6時にDatadogとSentryを巡回し、性能改善のPRを出すbot</a></h3>
+            <figure><img src="https://cdn.image.st-hatena.com/image/scale/f07da0ee73279f153fd6584960aa363db73d6921/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Fk%2Fkickflow%2F20261126%2F20261126145913.png" alt=""><figcaption>画像:kickflow Tech Blog</figcaption></figure>
+            <p><strong>kickflow</strong>は<em>Devin Bots</em>に一文で役割を伝えただけで、最初のPRは約25分で届いた。運用の工夫が実践的だ。close済みのPRを見て同じ提案を繰り返さないようにし、レビュー待ちが10件を超えないよう上限を設け、人の判断が要るものは相談として上げさせる。クエリ数を9割以上減らすPRも出てきた。「定期的に見回る係」をAIに任せる設計の参考になる。</p>
+            <p><a class="more" href="https://tech.kickflow.co.jp/entry/2026/11/27/154920" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">ITニュース</span><span class="en">IT NEWS</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/gigazine.net/news/20261127-android-app-developers-have-to-share-address-publicly/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 20h, 60 users</a></p>
+            <h3 class="hd l"><a href="https://gigazine.net/news/20261127-android-app-developers-have-to-share-address-publicly/" target="_blank" rel="noopener noreferrer">Google Play、「事業者」と申告した個人開発者の住所と電話番号を2027年3月から全世界で表示　私書箱は不可</a></h3>
+            <figure><img src="https://i.gzn.jp/img/2026/11/27/android-app-developers-have-to-share-address-publicly/00_m.jpg" alt=""><figcaption>画像:GIGAZINE</figcaption></figure>
+            <p>EUと英国の法律に基づく申告で、EU向けに配信していなくても、すべての開発者アカウントが<strong>2027年2月1日</strong>までに申告しなければならない。怠ると、更新の停止やアプリの削除もありうる。<strong>Google</strong>は私書箱を認めないため、課金や広告で収益を得ている個人開発者は、自宅の住所を出すか住所サービスを契約するかを選ぶことになる。個人でアプリを出しているなら、年明けまでに方針を決めておきたい。</p>
+            <p><a class="more" href="https://gigazine.net/news/20261127-android-app-developers-have-to-share-address-publicly/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://news.ycombinator.com/item?id=50661646" target="_blank" rel="noopener noreferrer">Hacker News · 11/26, 543p, 463 comments</a></p>
+            <h3 class="hd"><a href="https://blog.ktz.me/black-friday-hard-drive-prices-are-messed-up/" target="_blank" rel="noopener noreferrer">HDDの1TB単価、2024年の2倍超に　20TBのブラックフライデー価格は250ドルから550ドルへ</a></h3>
+            <figure><img src="https://pub-430e0c9ecb66464fa6999cd23a749d13.r2.dev/content/images/2026/11/black-friday-hard-drive-prices-are-messed-up/row-of-easystore-drives-on-a-cluttered-workbench.webp" alt=""><figcaption>画像:ktz.me</figcaption></figure>
+            <p>再生品まで含めて、1TBあたりの値段が約2〜3倍になった。筆者の購入記録で裏付けた話だ。メーカーは<strong>Seagate</strong>、<strong>WD</strong>、<strong>東芝</strong>の3社に絞られ、WDは売上の約9割をクラウド向けが占める。個人の買い手には値段を左右する力がない、と筆者は嘆く。NASやバックアップの更新は、もう「安くなるのを待つ」が通じないかもしれない。</p>
+            <p><a class="more" href="https://blog.ktz.me/black-friday-hard-drive-prices-are-messed-up/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">IT</span><a href="https://b.hatena.ne.jp/entry/s/www.itmedia.co.jp/news/article/2611/27/2000003503/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 19h, 120 users</a></p>
+            <h3 class="hd"><a href="https://www.itmedia.co.jp/news/article/2611/27/2000003503/" target="_blank" rel="noopener noreferrer">「お試し後に自動で有料」は申込が半分に　140万人の実験で、収益の上乗せも約16か月で消えた</a></h3>
+            <p>解約し忘れを当て込む<em>自動更新</em>は、申込率を自動で終わる方式の約半分に下げていた。上乗せされた収益も、長くは続かなかった。ニュースサイトの購読画面で約20か月追った、大規模な実験の結果だ。アプリのサブスク設計で無料トライアルの終わらせ方を決めるときに、手元に置いておきたい数字だ。</p>
+            <p><a class="more" href="https://www.itmedia.co.jp/news/article/2611/27/2000003503/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">Flutter</span><span class="en">FLUTTER &amp; DART</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://pub.dev/packages/purchases_flutter/changelog" target="_blank" rel="noopener noreferrer">pub.dev · 11/26</a></p>
+            <h3 class="hd l"><a href="https://pub.dev/packages/purchases_flutter/changelog" target="_blank" rel="noopener noreferrer">RevenueCatのpurchases_flutter 12.0.0、CocoaPods対応をやめSwiftPM必須に　CocoaPods trunkは12月2日に読み取り専用へ</a></h3>
+            <p>アプリ内課金の定番SDKが、iOSとmacOSの依存関係を<strong>Swift Package Manager</strong>に一本化した。<strong>CocoaPods</strong> trunkは<strong>12月2日</strong>に新しいPodspecを受け付けなくなる。今のビルドはそのまま通るが、trunk経由の新しいバージョンはもう届かない。SwiftPMを無効にしているアプリは、今後ほかのプラグインの更新でも取り残されていく。最低要件はFlutter 3.41、Dart 3.11、minSdk 24に上がった。移行できないうちは11.x系に留まるよう案内されている。</p>
+            <p><a class="more" href="https://pub.dev/packages/purchases_flutter/changelog" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://flutter.dev/blog/full-stack-agentic-ui-genkit-dart-a2ui" target="_blank" rel="noopener noreferrer">Flutter公式 · 11/24</a></p>
+            <h3 class="hd"><a href="https://flutter.dev/blog/full-stack-agentic-ui-genkit-dart-a2ui" target="_blank" rel="noopener noreferrer">Dartで書いたエージェントがA2UIで画面を送り、Flutterが描く　Genkitを使った公式チュートリアル</a></h3>
+            <p>先週のA2UI 1.0発表から、実装の手順へ一歩進んだ公式記事だ。レストラン予約を題材に、<em>genkit_a2ui</em>のミドルウェアで画面を逐次送り、ボタン操作をエージェントへ返す流れを通しで示す。独自コンポーネントでのカタログ拡張や、<em>A2UI Surface Inspector</em>でのデバッグも扱う。サーバーからアプリまでDartだけで組めるのが、Flutter開発者には大きい。</p>
+            <p><a class="more" href="https://flutter.dev/blog/full-stack-agentic-ui-genkit-dart-a2ui" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/rimo/articles/8fcea772148266" target="_blank" rel="noopener noreferrer">Zenn · 11/27</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/rimo/articles/8fcea772148266" target="_blank" rel="noopener noreferrer">Claudeのクラウドセッション中心の開発に変えたら、Flutterアプリの月間マージ数が62件から185件に</a></h3>
+            <p>決め手は、ウィジェットテストで全画面を状態別・テーマ別・端末サイズ別にPNGへ描き出す「画面カタログ」だ。AIが画像を見てレイアウトを直せるようになった。日本語フォントを同梱して描画結果を揃える、デバッグメニューでログを書き出す、といった小さな工夫も効いている。マージまでの中央値は20.7時間から6.9時間に縮んだ。少人数チームがすぐまねできる内容だ。</p>
+            <p><a class="more" href="https://zenn.dev/rimo/articles/8fcea772148266" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/aria3/articles/indie-app-ops-pitfalls-2026" target="_blank" rel="noopener noreferrer">Zenn · 11/25</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/aria3/articles/indie-app-ops-pitfalls-2026" target="_blank" rel="noopener noreferrer">UIScene未対応のアプリは、Xcode 27でビルドするとiOS 27で起動直後に落ちる　個人開発で踏んだ地雷6選</a></h3>
+            <p>真っ先に確かめたいのは、<em>UIScene</em>への移行が済んでいないFlutterアプリが審査で落とされた件だ。<em>supportedLocales</em>がiOSの言語欄に反映されない、スクリーンショットの「無料」表現でガイドライン違反になる、<strong>Firebase App Check</strong>を早く強制しすぎてAI機能が1週間止まる。どれも明日自分が踏みかねない落とし穴だ。</p>
+            <p><a class="more" href="https://zenn.dev/aria3/articles/indie-app-ops-pitfalls-2026" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/acs_developer/articles/flutter-state-context-null-check-after-await" target="_blank" rel="noopener noreferrer">Zenn · 11/24</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/acs_developer/articles/flutter-state-context-null-check-after-await" target="_blank" rel="noopener noreferrer">awaitの後、別メソッド経由でcontextに触るとNull check例外　lintは0件でも防げない</a></h3>
+            <p><em>use_build_context_synchronously</em>が見るのは、同じメソッドの中で直接contextを使う形だけだ。画面を閉じた後に呼ばれた別メソッドでの参照はすり抜け、Crashlyticsで初めて気づくことになる。<code>mounted</code>の確認を、各awaitの直後とcontextを使うメソッドの先頭の両方に置く。lintが静かでも安心できない場面を、具体的に示している。</p>
+            <p><a class="more" href="https://zenn.dev/acs_developer/articles/flutter-state-context-null-check-after-await" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/crs/articles/kuma-05-device-token-race-generation" target="_blank" rel="noopener noreferrer">Zenn · 11/25</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/crs/articles/kuma-05-device-token-race-generation" target="_blank" rel="noopener noreferrer">ログアウトしても通知が届き続ける　デバイストークン解除の競合を「世代ID」で防ぐ</a></h3>
+            <p>AIのセキュリティレビューがきっかけで見つかった問題だ。直す途中で、遅れて届いたDELETEが新しい登録を消すなど4つの競合が出てきた。登録ごとにIDを振り、すべて一致したときだけ消す設計に改め、それでも残る穴まで正直に書いている。プッシュ通知を扱うアプリなら、一度は自分のコードと照らし合わせたい。</p>
+            <p><a class="more" href="https://zenn.dev/crs/articles/kuma-05-device-token-race-generation" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/crs/articles/hitoiki-03-turnstile-flutter-supabase" target="_blank" rel="noopener noreferrer">Zenn · 11/26</a></p>
+            <h3 class="hd"><a href="https://zenn.dev/crs/articles/hitoiki-03-turnstile-flutter-supabase" target="_blank" rel="noopener noreferrer">Cloudflare TurnstileをFlutterのアプリとWebに入れ、SupabaseのCAPTCHA保護を有効に</a></h3>
+            <p>一番の注意点は有効にする順番だ。<strong>Supabase</strong>のCAPTCHA保護はプロジェクト全体にかかる。トークンを送らない旧版のアプリが残っているうちにオンにすると、その利用者は登録もログインもできなくなる。モバイルは<em>webview_flutter</em>、Webはスクリプトの遅延読み込みで切り替える実装も載っている。</p>
+            <p><a class="more" href="https://zenn.dev/crs/articles/hitoiki-03-turnstile-flutter-supabase" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/acs_developer/articles/flutter-modal-bottom-sheet-9-16-max-height" target="_blank" rel="noopener noreferrer">Zenn · 11/27</a></p>
+            <h3 class="hd s"><a href="https://zenn.dev/acs_developer/articles/flutter-modal-bottom-sheet-9-16-max-height" target="_blank" rel="noopener noreferrer">showModalBottomSheetの「高さ上限9/16」で選択肢がはみ出す　60通りで実測</a></h3>
+            <p>小さな画面では、選択肢が6個でもはみ出した。<em>isScrollControlled</em>、<em>MainAxisSize.min</em>、<em>Flexible</em>とスクロールを組み合わせた書き方だけが、全ケースで無事だった。フォントの違いによる2.6pxのずれはテストで再現しなかった、という限界まで書いてあるのが良い。</p>
+            <p><a class="more" href="https://zenn.dev/acs_developer/articles/flutter-modal-bottom-sheet-9-16-max-height" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://zenn.dev/narun/articles/20261127-drift-migration-strategy" target="_blank" rel="noopener noreferrer">Zenn · 11/27</a></p>
+            <h3 class="hd s"><a href="https://zenn.dev/narun/articles/20261127-drift-migration-strategy" target="_blank" rel="noopener noreferrer">driftのマイグレーション、「if (from &lt; n)」の積み重ねをやめてバージョンごとの手順に</a></h3>
+            <p><strong>drift</strong>の<em>make-migrations</em>でスキーマのスナップショットを残し、1版ずつ進める。外部キーの検査はトランザクションの中では効かないので外で切り替える、という落とし穴も押さえている。ローカルDBを長く育てるアプリに効く設計だ。</p>
+            <p><a class="more" href="https://zenn.dev/narun/articles/20261127-drift-migration-strategy" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">FLUTTER</span><a href="https://pub.dev/packages/patrol/changelog" target="_blank" rel="noopener noreferrer">pub.dev · 11/24</a></p>
+            <h3 class="hd s"><a href="https://pub.dev/packages/patrol/changelog" target="_blank" rel="noopener noreferrer">E2EテストのPatrol 4.12.0、R8のkeepルールを同梱　難読化したリリースビルドでもそのまま試験</a></h3>
+            <p>アプリ側にkeepルールを書かずに、本番に近い難読化済みのビルドでE2Eテストを回せるようになった。Webでのネイティブスクリーンショットや、Androidでのカバレッジ取得にも対応している。</p>
+            <p><a class="more" href="https://pub.dev/packages/patrol/changelog" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="men">
+        <h2 class="men-head"><span class="no"></span><span class="ttl">セキュリティ</span><span class="en">SECURITY</span></h2>
+        <div class="cols">
+          <article class="story top">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://b.hatena.ne.jp/entry/s/lolipop.jp/info/news/8279/" target="_blank" rel="noopener noreferrer">はてなブックマーク · 16h, 166 users</a></p>
+            <h3 class="hd l"><a href="https://lolipop.jp/info/news/8279/" target="_blank" rel="noopener noreferrer">ロリポップ！の51万アカウント分が流出　平文で保存していたBasic認証のIDとパスワード10万件余りも</a></h3>
+            <p>入口は、<strong>GMOペパボ</strong>社内のデータ分析基盤だった。漏れたのは氏名やメールに加え、利用者が自分で設定したBasic認証の資格情報約10.5万件や、初期のFTPパスワードなどだ。同社はこれらを<em>平文</em>で保存していたと認めている。リセットされたのはサービス側の値だけなので、同じパスワードをほかで使い回しているなら、自分で変える必要がある。分析基盤に生のパスワードが流れ込んでいたこと自体も、設計の教訓になる。</p>
+            <p><a class="more" href="https://lolipop.jp/info/news/8279/" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://thehackernews.com/2026/11/north-korea-linked-polinrider-poisons.html" target="_blank" rel="noopener noreferrer">The Hacker News · 11/26</a></p>
+            <h3 class="hd"><a href="https://thehackernews.com/2026/11/north-korea-linked-polinrider-poisons.html" target="_blank" rel="noopener noreferrer">北朝鮮系「PolinRider」、GitHubの7609リポジトリに悪性コード　VS Codeでフォルダを開くだけで感染</a></h3>
+            <figure><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgquhPuqGJrSE3xNpn5ZUELVAv-Y7qXqkHgpw7nbVqCay4gyraYO5NNE12rAGzuqk_zhreNwcyzjZf3vZZB5C4teohyuppUP-JlP41PQiLu-hGEFCsqMZO0T6MoaVk-uY818yaTaiJaX-d2O0h0RER22knXbUQc7qnwIcVbleLQrEspMQ8btNa4Q9mFrmue/s1600/gitcat.jpg" alt=""><figcaption>画像:The Hacker News</figcaption></figure>
+            <p>被害の86%は、長く使われてきた普通の個人アカウントだった。攻撃者は作者や日付を保ったまま過去のコミットを書き換え、ビルド設定の大量の空白の後ろにローダーを隠す。「信頼できそうなリポジトリ」かどうかは、もう目印にならない。偽の採用課題も配布経路になっている。知らないリポジトリは、エディタの<em>ワークスペースの信頼</em>を切った状態で開くのが身を守る基本だ。</p>
+            <p><a class="more" href="https://thehackernews.com/2026/11/north-korea-linked-polinrider-poisons.html" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+          <article class="story">
+            <p class="meta"><span class="cat">SECURITY</span><a href="https://news.ycombinator.com/item?id=50668145" target="_blank" rel="noopener noreferrer">Hacker News · 11/27, 331p, 176 comments</a></p>
+            <h3 class="hd"><a href="https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer" target="_blank" rel="noopener noreferrer">Samsoniteなど通販5サイトにカード情報スキマー　WebRTCで送ってCSPをすり抜け、スマホの決済画面だけを狙う</a></h3>
+            <figure><img src="https://www.infohawk.com/_app/immutable/assets/2026-11-27-black-friday-webrtc-skimmer.BQAmEGg5.png" alt=""><figcaption>画像:infohawk</figcaption></figure>
+            <p>仕込まれた経路は、広告計測のピクセル、同意バナーの設定、自社CDNのファイルと、どれも「よく使う外部タグ」だった。データは<em>WebRTC</em>のデータチャネルで送られ、CSPの<code>connect-src</code>では止められなかった。モバイルの決済ページでしか動かないため、PCでの確認では見つからない。Webの決済画面を持つなら、サードパーティのタグを置くかどうかから見直したい。</p>
+            <p><a class="more" href="https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+          </article>
+        </div>
+      </section>
+
+  </main>
+
+  <div class="bottom">
+      <section class="side-box solo">
+        <h2 class="side-head">暮らし欄<small>CAREER</small></h2>
+        <article class="story">
+          <p class="meta"><span class="cat">CAREER</span><a href="https://b.hatena.ne.jp/entry/s/note.com/at_sushi_at/n/n2e6ea3453e37" target="_blank" rel="noopener noreferrer">はてなブックマーク · 11/15, 486 users</a></p>
+          <h3 class="hd"><a href="https://note.com/at_sushi_at/n/n2e6ea3453e37" target="_blank" rel="noopener noreferrer">「目指したキャリア像は、元の形ではもう存在しない」　『良いコードの道しるべ』の著者が今、エンジニアとして思うこと</a></h3>
+          <p>書き手は、Androidエンジニアで技術書の著者でもある<strong>森篤史</strong>氏だ。1年前は「判断はまだ人の領分」と考えていたが、今は最新モデルの判断に従うことが多いと率直に認める。AIの環境を整える仕事も危ない変更を止める門番役も、どちらも短命だとみる。そのうえで長い目の選択肢として、何を作るかを決める側へ寄る、AI開発の基盤側へ移る、業界を離れる、の3つを挙げる。モバイル開発者が自分の数年先を考えるとき、正直な地図になる文章だ。</p>
+          <p><a class="more" href="https://note.com/at_sushi_at/n/n2e6ea3453e37" target="_blank" rel="noopener noreferrer">詳細を読む</a></p>
+        </article>
+      </section>
+
+      <section class="side-box quote">
+        <h2 class="side-head">きょうの名言<small>QUOTE</small></h2>
+        <div class="quote-body">
+          <blockquote>勇気とは恐れがないことではなく、恐れに打ち勝つことなのだと、私は学んだ</blockquote>
+          <p class="who">ネルソン・マンデラ</p>
+        </div>
+        <p class="bio"><span class="cat">人物</span>南アフリカのアパルトヘイト(人種隔離政策)に抗い、27年あまり投獄された後、1994年に同国初の全人種参加選挙で大統領になった。この言葉は自伝の終わり近く、大統領就任の日を振り返りながら、獄中で拷問や屈辱に屈しなかった同志たちから学んだこととして書かれている。勇敢な人とは恐れを感じない人ではなく、それを乗り越える人だ、と続く。</p>
+        <p class="src">南アフリカ共和国大統領、ノーベル平和賞受賞者、1918年〜2013年<br>出典:自伝『自由への長い道』(Long Walk to Freedom、1994年)最終章</p>
+      </section>
+  </div>
+
+  <footer class="okuzuke">
+    <p>Daily Dispatch は自動編集の個人用日刊紙です。</p>
+    <p>要約は各リンク先の元記事に基づきます。詳しくは元記事をご覧ください。</p>
+  </footer>
+</div>
+</body>
+</html>
